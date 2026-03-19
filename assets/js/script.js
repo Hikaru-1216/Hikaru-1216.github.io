@@ -40,9 +40,17 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.appendChild(canvas);
 
   const ctx = canvas.getContext("2d");
+  const COLORS = {
+    node: "rgba(132, 150, 255, VALUE_ALPHA)",
+    lineNear: "rgba(146, 169, 255, VALUE_ALPHA)",
+    lineMouse: "rgba(168, 186, 255, VALUE_ALPHA)",
+    glow: "rgba(168, 186, 255, 0.35)",
+  };
+  const enableGlow = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const points = [];
   const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2, active: false };
   const maxPoints = 120;
+  const maxConnectionsPerPoint = 6;
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -87,16 +95,22 @@ document.addEventListener("DOMContentLoaded", () => {
     for (const p of points) {
       const alpha = 1 - p.life / p.maxLife;
       ctx.beginPath();
-      ctx.fillStyle = `rgba(132, 150, 255, ${0.6 * alpha})`;
-      ctx.shadowColor = "rgba(132, 150, 255, 0.5)";
-      ctx.shadowBlur = 12;
+      ctx.fillStyle = COLORS.node.replace("VALUE_ALPHA", (0.6 * alpha).toString());
+      if (enableGlow) {
+        ctx.shadowColor = COLORS.glow;
+        ctx.shadowBlur = 12;
+      } else {
+        ctx.shadowBlur = 0;
+      }
       ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2);
       ctx.fill();
     }
 
     // 绘制连线
     for (let i = 0; i < points.length; i++) {
+      let connections = 0;
       for (let j = i + 1; j < points.length; j++) {
+        if (connections >= maxConnectionsPerPoint) break;
         const p1 = points[i];
         const p2 = points[j];
         const dx = p1.x - p2.x;
@@ -110,11 +124,16 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.beginPath();
         ctx.moveTo(p1.x, p1.y);
         ctx.lineTo(p2.x, p2.y);
-        ctx.strokeStyle = `rgba(146, 169, 255, ${0.55 * alpha})`;
+        ctx.strokeStyle = COLORS.lineNear.replace("VALUE_ALPHA", (0.55 * alpha).toString());
         ctx.lineWidth = 1.4;
-        ctx.shadowColor = "rgba(146, 169, 255, 0.45)";
-        ctx.shadowBlur = 20;
+        if (enableGlow) {
+          ctx.shadowColor = COLORS.glow;
+          ctx.shadowBlur = 20;
+        } else {
+          ctx.shadowBlur = 0;
+        }
         ctx.stroke();
+        connections += 1;
       }
 
       // 与鼠标的连线
@@ -128,10 +147,14 @@ document.addEventListener("DOMContentLoaded", () => {
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = `rgba(168, 186, 255, ${0.4 * alpha})`;
+          ctx.strokeStyle = COLORS.lineMouse.replace("VALUE_ALPHA", (0.4 * alpha).toString());
           ctx.lineWidth = 1.2;
-          ctx.shadowColor = "rgba(168, 186, 255, 0.35)";
-          ctx.shadowBlur = 18;
+          if (enableGlow) {
+            ctx.shadowColor = COLORS.glow;
+            ctx.shadowBlur = 18;
+          } else {
+            ctx.shadowBlur = 0;
+          }
           ctx.stroke();
         }
       }
