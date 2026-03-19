@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const PARTICLE_RADIUS = 1.6;
   const PARTICLE_LINE_WIDTH = 1.4;
   const MOUSE_LINE_WIDTH = 1.2;
-  const MOUSE_SPAWN_THROTTLE_MS = 16;
+  const MOUSE_SPAWN_THROTTLE_MS = 32;
   let lastSpawnAt = 0;
 
   function resizeCanvas() {
