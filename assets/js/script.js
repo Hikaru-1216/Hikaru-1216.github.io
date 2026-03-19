@@ -40,17 +40,20 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.appendChild(canvas);
 
   const ctx = canvas.getContext("2d");
-  const COLORS = {
-    node: "rgba(132, 150, 255, VALUE_ALPHA)",
-    lineNear: "rgba(146, 169, 255, VALUE_ALPHA)",
-    lineMouse: "rgba(168, 186, 255, VALUE_ALPHA)",
-    glow: "rgba(168, 186, 255, 0.35)",
+  const colorWithAlpha = (base, alpha) => `rgba(${base.join(",")}, ${alpha})`;
+  const COLOR_BASES = {
+    node: [132, 150, 255],
+    lineNear: [146, 169, 255],
+    lineMouse: [168, 186, 255],
+    glow: [168, 186, 255],
   };
   const enableGlow = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const points = [];
   const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2, active: false };
-  const maxPoints = 120;
-  const maxConnectionsPerPoint = 6;
+  const MAX_PARTICLE_COUNT = 120;
+  const MAX_CONNECTIONS_PER_PARTICLE = 6;
+  const MAX_PARTICLE_CONNECTION_DISTANCE = 140;
+  const MAX_MOUSE_CONNECTION_DISTANCE = 160;
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -72,8 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 控制数量，避免持续增长
-    if (points.length > maxPoints) {
-      points.splice(0, points.length - maxPoints);
+    if (points.length > MAX_PARTICLE_COUNT) {
+      points.splice(0, points.length - MAX_PARTICLE_COUNT);
     }
   }
 
@@ -95,9 +98,9 @@ document.addEventListener("DOMContentLoaded", () => {
     for (const p of points) {
       const alpha = 1 - p.life / p.maxLife;
       ctx.beginPath();
-      ctx.fillStyle = COLORS.node.replace("VALUE_ALPHA", (0.6 * alpha).toString());
+      ctx.fillStyle = colorWithAlpha(COLOR_BASES.node, 0.6 * alpha);
       if (enableGlow) {
-        ctx.shadowColor = COLORS.glow;
+        ctx.shadowColor = colorWithAlpha(COLOR_BASES.glow, 0.35);
         ctx.shadowBlur = 12;
       } else {
         ctx.shadowBlur = 0;
@@ -110,13 +113,13 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < points.length; i++) {
       let connections = 0;
       for (let j = i + 1; j < points.length; j++) {
-        if (connections >= maxConnectionsPerPoint) break;
+        if (connections >= MAX_CONNECTIONS_PER_PARTICLE) break;
         const p1 = points[i];
         const p2 = points[j];
         const dx = p1.x - p2.x;
         const dy = p1.y - p2.y;
         const dist = Math.hypot(dx, dy);
-        if (dist > 140) continue;
+        if (dist > MAX_PARTICLE_CONNECTION_DISTANCE) continue;
 
         const alpha = (1 - p1.life / p1.maxLife) * (1 - dist / 140);
         if (alpha <= 0) continue;
@@ -124,10 +127,10 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.beginPath();
         ctx.moveTo(p1.x, p1.y);
         ctx.lineTo(p2.x, p2.y);
-        ctx.strokeStyle = COLORS.lineNear.replace("VALUE_ALPHA", (0.55 * alpha).toString());
+        ctx.strokeStyle = colorWithAlpha(COLOR_BASES.lineNear, 0.55 * alpha);
         ctx.lineWidth = 1.4;
         if (enableGlow) {
-          ctx.shadowColor = COLORS.glow;
+          ctx.shadowColor = colorWithAlpha(COLOR_BASES.glow, 0.35);
           ctx.shadowBlur = 20;
         } else {
           ctx.shadowBlur = 0;
@@ -142,15 +145,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
         const dist = Math.hypot(dx, dy);
-        if (dist < 160) {
-          const alpha = (1 - p.life / p.maxLife) * (1 - dist / 160);
+        if (dist < MAX_MOUSE_CONNECTION_DISTANCE) {
+          const alpha = (1 - p.life / p.maxLife) * (1 - dist / MAX_MOUSE_CONNECTION_DISTANCE);
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = COLORS.lineMouse.replace("VALUE_ALPHA", (0.4 * alpha).toString());
+          ctx.strokeStyle = colorWithAlpha(COLOR_BASES.lineMouse, 0.4 * alpha);
           ctx.lineWidth = 1.2;
           if (enableGlow) {
-            ctx.shadowColor = COLORS.glow;
+            ctx.shadowColor = colorWithAlpha(COLOR_BASES.glow, 0.35);
             ctx.shadowBlur = 18;
           } else {
             ctx.shadowBlur = 0;
