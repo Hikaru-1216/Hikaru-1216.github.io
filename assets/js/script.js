@@ -50,19 +50,33 @@ document.addEventListener("DOMContentLoaded", () => {
   const enableGlow = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const points = [];
   const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2, active: false };
-  const MAX_PARTICLE_COUNT = 120;
-  const MAX_CONNECTIONS_PER_PARTICLE = 6;
-  const MAX_PARTICLE_CONNECTION_DISTANCE = 140;
-  const MAX_MOUSE_CONNECTION_DISTANCE = 160;
-  const PARTICLE_SPAWN_SPREAD = 60;
-  const MAX_PARTICLE_VELOCITY = 0.9;
-  const MIN_PARTICLE_LIFE = 90;
-  const PARTICLE_LIFE_RANGE = 40;
+  const MAX_PARTICLE_COUNT = 90;
+  const MAX_CONNECTIONS_PER_PARTICLE = 4;
+  const MAX_PARTICLE_CONNECTION_DISTANCE = 160;
+  const MAX_MOUSE_CONNECTION_DISTANCE = 190;
+  const MAX_MOUSE_LINES = 18;
+  const INITIAL_LIFE_FACTOR = 0.4;
+  const MIN_PARTICLE_LIFE = 420;
+  const PARTICLE_LIFE_RANGE = 280;
+  const RECYCLED_VELOCITY_FACTOR = 0.85;
+  // Fill alpha = BASE_NODE_ALPHA * (ALPHA_MIN_MULTIPLIER + ALPHA_RANGE_MULTIPLIER * lifeRatio)
+  const BASE_NODE_ALPHA = 0.55;
+  const ALPHA_MIN_MULTIPLIER = 0.7;
+  const ALPHA_RANGE_MULTIPLIER = 0.3;
+  const MAX_RECYCLE_POOL_SIZE = 14;
+  const MOUSE_ATTRACTION_STRENGTH = 0.0008;
+  const VELOCITY_DAMPING_FACTOR = 0.995;
+  const PARTICLE_SPAWN_SPREAD = 26;
+  const MAX_PARTICLE_VELOCITY = 0.45;
+  const DRIFT_NOISE = 0.006;
+  // Seed particles with partial life so they don't all peak brightness simultaneously
+  const INITIAL_LIFE_MAX = MIN_PARTICLE_LIFE * INITIAL_LIFE_FACTOR;
   const PARTICLE_RADIUS = 1.6;
   const PARTICLE_LINE_WIDTH = 1.4;
-  const MOUSE_LINE_WIDTH = 1.2;
-  const MOUSE_SPAWN_THROTTLE_MS = 32;
-  let lastSpawnAt = 0;
+  const MOUSE_LINE_WIDTH = 1.1;
+  const MOUSE_RELOCATE_THROTTLE_MS = 45;
+  const EDGE_RESPAWN_MARGIN = 24;
+  let lastRelocateAt = 0;
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -71,43 +85,66 @@ document.addEventListener("DOMContentLoaded", () => {
   resizeCanvas();
   window.addEventListener("resize", resizeCanvas);
 
-  function spawnBurst(x, y) {
-    for (let i = 0; i < 4; i++) {
-      points.push({
-        x: x + (Math.random() - 0.5) * PARTICLE_SPAWN_SPREAD,
-        y: y + (Math.random() - 0.5) * PARTICLE_SPAWN_SPREAD,
-        vx: (Math.random() - 0.5) * MAX_PARTICLE_VELOCITY,
-        vy: (Math.random() - 0.5) * MAX_PARTICLE_VELOCITY,
-        life: 0,
-        maxLife: MIN_PARTICLE_LIFE + Math.random() * PARTICLE_LIFE_RANGE,
-      });
-    }
+  function createParticle(x = Math.random() * canvas.width, y = Math.random() * canvas.height) {
+    return {
+      x,
+      y,
+      vx: (Math.random() - 0.5) * MAX_PARTICLE_VELOCITY,
+      vy: (Math.random() - 0.5) * MAX_PARTICLE_VELOCITY,
+      life: Math.random() * INITIAL_LIFE_MAX,
+      maxLife: MIN_PARTICLE_LIFE + Math.random() * PARTICLE_LIFE_RANGE,
+    };
+  }
 
-    // 控制数量，避免持续增长
-    if (points.length > MAX_PARTICLE_COUNT) {
-      points.splice(0, points.length - MAX_PARTICLE_COUNT);
+  function recycleParticle(p, x, y) {
+    p.x = x;
+    p.y = y;
+    p.vx = (Math.random() - 0.5) * MAX_PARTICLE_VELOCITY * RECYCLED_VELOCITY_FACTOR;
+    p.vy = (Math.random() - 0.5) * MAX_PARTICLE_VELOCITY * RECYCLED_VELOCITY_FACTOR;
+    p.life = 0;
+    p.maxLife = MIN_PARTICLE_LIFE + Math.random() * PARTICLE_LIFE_RANGE;
+  }
+
+  function seedFloatingParticles() {
+    points.length = 0;
+    for (let i = 0; i < MAX_PARTICLE_COUNT; i++) {
+      points.push(createParticle());
     }
   }
+  seedFloatingParticles();
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let mouseLinesDrawn = 0;
 
     // 更新粒子状态
     for (let i = points.length - 1; i >= 0; i--) {
       const p = points[i];
+      p.vx += (Math.random() - 0.5) * DRIFT_NOISE;
+      p.vy += (Math.random() - 0.5) * DRIFT_NOISE;
+      p.vx *= VELOCITY_DAMPING_FACTOR;
+      p.vy *= VELOCITY_DAMPING_FACTOR;
       p.x += p.vx;
       p.y += p.vy;
       p.life += 1;
+      if (p.x < -EDGE_RESPAWN_MARGIN) p.x = canvas.width + EDGE_RESPAWN_MARGIN;
+      if (p.x > canvas.width + EDGE_RESPAWN_MARGIN) p.x = -EDGE_RESPAWN_MARGIN;
+      if (p.y < -EDGE_RESPAWN_MARGIN) p.y = canvas.height + EDGE_RESPAWN_MARGIN;
+      if (p.y > canvas.height + EDGE_RESPAWN_MARGIN) p.y = -EDGE_RESPAWN_MARGIN;
       if (p.life > p.maxLife) {
-        points.splice(i, 1);
+        recycleParticle(p, Math.random() * canvas.width, Math.random() * canvas.height);
       }
     }
 
     // 绘制粒子
     for (const p of points) {
-      const alpha = 1 - p.life / p.maxLife;
+      const lifeFactor = 1 - p.life / p.maxLife;
       ctx.beginPath();
-      ctx.fillStyle = colorWithAlpha(COLOR_BASES.node, 0.6 * alpha);
+      ctx.fillStyle = colorWithAlpha(
+        COLOR_BASES.node,
+        // Keep fill subtle: BASE_NODE_ALPHA * (ALPHA_MIN_MULTIPLIER + ALPHA_RANGE_MULTIPLIER * lifeFactor)
+        Math.min(1, BASE_NODE_ALPHA * (ALPHA_MIN_MULTIPLIER + ALPHA_RANGE_MULTIPLIER * lifeFactor))
+      );
       if (enableGlow) {
         ctx.shadowColor = colorWithAlpha(COLOR_BASES.glow, 0.35);
         ctx.shadowBlur = 12;
@@ -148,13 +185,13 @@ document.addEventListener("DOMContentLoaded", () => {
         connections += 1;
       }
 
-      // 与鼠标的连线
+      // Mouse-to-particle connections
       if (mouse.active) {
         const p = points[i];
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
         const dist = Math.hypot(dx, dy);
-        if (dist < MAX_MOUSE_CONNECTION_DISTANCE) {
+        if (dist < MAX_MOUSE_CONNECTION_DISTANCE && mouseLinesDrawn < MAX_MOUSE_LINES) {
           const alpha = (1 - p.life / p.maxLife) * (1 - dist / MAX_MOUSE_CONNECTION_DISTANCE);
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
@@ -168,6 +205,10 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.shadowBlur = 0;
           }
           ctx.stroke();
+          mouseLinesDrawn += 1;
+          // Gentle attraction for smooth line effects
+          p.vx += (mouse.x - p.x) * MOUSE_ATTRACTION_STRENGTH;
+          p.vy += (mouse.y - p.y) * MOUSE_ATTRACTION_STRENGTH;
         }
       }
     }
@@ -176,18 +217,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   window.addEventListener("mousemove", (event) => {
-    const now = performance.now();
-    if (now - lastSpawnAt < MOUSE_SPAWN_THROTTLE_MS) {
-      mouse.x = event.clientX;
-      mouse.y = event.clientY;
-      mouse.active = true;
-      return;
-    }
-    lastSpawnAt = now;
     mouse.x = event.clientX;
     mouse.y = event.clientY;
     mouse.active = true;
-    spawnBurst(event.clientX, event.clientY);
+    const now = performance.now();
+    if (now - lastRelocateAt > MOUSE_RELOCATE_THROTTLE_MS && points.length) {
+      // Pick one particle randomly from the last N particles in the array to relocate near the mouse
+      const poolSize = Math.min(points.length, MAX_RECYCLE_POOL_SIZE);
+      const offset = Math.max(0, points.length - poolSize);
+      const idx = offset + Math.floor(Math.random() * poolSize);
+      recycleParticle(
+        points[idx],
+        mouse.x + (Math.random() - 0.5) * PARTICLE_SPAWN_SPREAD,
+        mouse.y + (Math.random() - 0.5) * PARTICLE_SPAWN_SPREAD
+      );
+      lastRelocateAt = now;
+    }
   });
 
   window.addEventListener("mouseleave", () => {
