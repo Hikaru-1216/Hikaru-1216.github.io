@@ -54,6 +54,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const MAX_CONNECTIONS_PER_PARTICLE = 6;
   const MAX_PARTICLE_CONNECTION_DISTANCE = 140;
   const MAX_MOUSE_CONNECTION_DISTANCE = 160;
+  const PARTICLE_SPAWN_SPREAD = 60;
+  const MAX_PARTICLE_VELOCITY = 0.9;
+  const MIN_PARTICLE_LIFE = 90;
+  const PARTICLE_LIFE_RANGE = 40;
+  const PARTICLE_RADIUS = 1.6;
+  const PARTICLE_LINE_WIDTH = 1.4;
+  const MOUSE_LINE_WIDTH = 1.2;
+  const MOUSE_SPAWN_THROTTLE_MS = 16;
+  let lastSpawnAt = 0;
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -65,12 +74,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function spawnBurst(x, y) {
     for (let i = 0; i < 4; i++) {
       points.push({
-        x: x + (Math.random() - 0.5) * 60,
-        y: y + (Math.random() - 0.5) * 60,
-        vx: (Math.random() - 0.5) * 0.9,
-        vy: (Math.random() - 0.5) * 0.9,
+        x: x + (Math.random() - 0.5) * PARTICLE_SPAWN_SPREAD,
+        y: y + (Math.random() - 0.5) * PARTICLE_SPAWN_SPREAD,
+        vx: (Math.random() - 0.5) * MAX_PARTICLE_VELOCITY,
+        vy: (Math.random() - 0.5) * MAX_PARTICLE_VELOCITY,
         life: 0,
-        maxLife: 90 + Math.random() * 40,
+        maxLife: MIN_PARTICLE_LIFE + Math.random() * PARTICLE_LIFE_RANGE,
       });
     }
 
@@ -105,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         ctx.shadowBlur = 0;
       }
-      ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, PARTICLE_RADIUS, 0, Math.PI * 2);
       ctx.fill();
     }
 
@@ -128,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.moveTo(p1.x, p1.y);
         ctx.lineTo(p2.x, p2.y);
         ctx.strokeStyle = colorWithAlpha(COLOR_BASES.lineNear, 0.55 * alpha);
-        ctx.lineWidth = 1.4;
+        ctx.lineWidth = PARTICLE_LINE_WIDTH;
         if (enableGlow) {
           ctx.shadowColor = colorWithAlpha(COLOR_BASES.glow, 0.35);
           ctx.shadowBlur = 20;
@@ -151,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(mouse.x, mouse.y);
           ctx.strokeStyle = colorWithAlpha(COLOR_BASES.lineMouse, 0.4 * alpha);
-          ctx.lineWidth = 1.2;
+          ctx.lineWidth = MOUSE_LINE_WIDTH;
           if (enableGlow) {
             ctx.shadowColor = colorWithAlpha(COLOR_BASES.glow, 0.35);
             ctx.shadowBlur = 18;
@@ -167,6 +176,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   window.addEventListener("mousemove", (event) => {
+    const now = performance.now();
+    if (now - lastSpawnAt < MOUSE_SPAWN_THROTTLE_MS) {
+      mouse.x = event.clientX;
+      mouse.y = event.clientY;
+      mouse.active = true;
+      return;
+    }
+    lastSpawnAt = now;
     mouse.x = event.clientX;
     mouse.y = event.clientY;
     mouse.active = true;
