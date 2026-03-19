@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const dist = Math.hypot(dx, dy);
         if (dist > MAX_PARTICLE_CONNECTION_DISTANCE) continue;
 
-        const alpha = (1 - p1.life / p1.maxLife) * (1 - dist / 140);
+        const alpha = (1 - p1.life / p1.maxLife) * (1 - dist / MAX_PARTICLE_CONNECTION_DISTANCE);
         if (alpha <= 0) continue;
 
         ctx.beginPath();
