@@ -42,8 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const prefersReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const STAR_COUNT = prefersReduceMotion ? 140 : 240;
-  const MIN_RADIUS = 0.7;
-  const MAX_RADIUS = 2.3;
+  const MIN_RADIUS = 1.1;
+  const MAX_RADIUS = 3.3;
   // px / s
   const BASE_SPEED = prefersReduceMotion ? 8 : 12;
   const TWINKLE_SPEED_MIN = 0.0006;
@@ -64,8 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const TWINKLE_AMPLITUDE = 0.4;
   const TWINKLE_RADIUS_FACTOR = 0.25;
   const PULSE_RADIUS_FACTOR = 0.45;
-  const BASE_SHADOW_BLUR = 14;
-  const PULSE_SHADOW_MULTIPLIER = 10;
+  const BASE_SHADOW_BLUR = 18;
+  const PULSE_SHADOW_MULTIPLIER = 12;
   const TWINKLE_TABLE_SIZE = 1024;
   const TWINKLE_TABLE = Array.from({ length: TWINKLE_TABLE_SIZE }, (_, i) =>
     Math.sin((i / TWINKLE_TABLE_SIZE) * Math.PI * 2)
@@ -148,17 +148,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const mouseEngaged = mouse.active || now - mouse.lastMove < MOUSE_EFFECT_PERSIST_DURATION_MS;
 
-    if (mouseEngaged) {
-      ctx.save();
-      const halo = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, MOUSE_INFLUENCE_RADIUS);
-      halo.addColorStop(0, "rgba(255, 241, 224, 0.22)");
-      halo.addColorStop(0.35, "rgba(164, 199, 255, 0.16)");
-      halo.addColorStop(1, "rgba(12, 20, 38, 0)");
-      ctx.globalCompositeOperation = "screen";
-      ctx.fillStyle = halo;
-      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-      ctx.restore();
-    }
+    let haloWeight = 0;
+    let haloWeightedX = 0;
+    let haloWeightedY = 0;
 
     for (const star of stars) {
       // Gentle drift
@@ -174,12 +166,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (star.y > canvasHeight + EDGE_MARGIN) star.y = -EDGE_MARGIN;
 
       // Mouse attraction and local brightening
+      let distToMouse = null;
       if (mouseEngaged) {
         const dx = mouse.x - star.x;
         const dy = mouse.y - star.y;
-        const dist = Math.hypot(dx, dy);
-        if (dist < MOUSE_INFLUENCE_RADIUS && dist > MIN_DISTANCE_THRESHOLD) {
-          const influence = 1 - dist / MOUSE_INFLUENCE_RADIUS;
+        distToMouse = Math.hypot(dx, dy);
+        if (distToMouse < MOUSE_INFLUENCE_RADIUS && distToMouse > MIN_DISTANCE_THRESHOLD) {
+          const influence = 1 - distToMouse / MOUSE_INFLUENCE_RADIUS;
           const pull = influence * MOUSE_PULL * deltaSec;
           star.vx += dx * pull;
           star.vy += dy * pull;
@@ -196,6 +189,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const brightness = Math.min(1, star.baseAlpha * twinkle + star.pulse);
       const radius = star.radius * (1 + twinkle * TWINKLE_RADIUS_FACTOR + star.pulse * PULSE_RADIUS_FACTOR);
 
+      if (mouseEngaged && distToMouse !== null && distToMouse < MOUSE_INFLUENCE_RADIUS) {
+        const contribution = brightness * (1 - distToMouse / MOUSE_INFLUENCE_RADIUS);
+        haloWeight += contribution;
+        haloWeightedX += star.x * contribution;
+        haloWeightedY += star.y * contribution;
+      }
+
       ctx.beginPath();
       ctx.fillStyle = `rgba(220, 233, 255, ${brightness})`;
       if (prefersReduceMotion) {
@@ -206,6 +206,22 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       ctx.arc(star.x, star.y, radius, 0, Math.PI * 2);
       ctx.fill();
+    }
+
+    if (mouseEngaged && haloWeight > 0.08) {
+      const haloCenterX = haloWeightedX / haloWeight;
+      const haloCenterY = haloWeightedY / haloWeight;
+      const haloStrength = Math.min(1, haloWeight / (STAR_COUNT * 0.15));
+      const haloRadius = MOUSE_INFLUENCE_RADIUS * (0.6 + haloStrength * 0.55);
+      ctx.save();
+      const halo = ctx.createRadialGradient(haloCenterX, haloCenterY, 0, haloCenterX, haloCenterY, haloRadius);
+      halo.addColorStop(0, `rgba(255, 241, 224, ${0.22 + haloStrength * 0.38})`);
+      halo.addColorStop(0.42, `rgba(164, 199, 255, ${0.16 + haloStrength * 0.26})`);
+      halo.addColorStop(1, "rgba(12, 20, 38, 0)");
+      ctx.globalCompositeOperation = "screen";
+      ctx.fillStyle = halo;
+      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+      ctx.restore();
     }
 
     requestAnimationFrame(draw);

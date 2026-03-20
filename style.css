@@ -14,7 +14,7 @@ html, body{
 
 body{
   font-family:"Noto Sans SC", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  background: radial-gradient(ellipse at 20% 20%, #0c1a38 0%, #050b19 45%, #040814 100%);
+  background:#040814;
   color:#1c1c1c;
 }
 
@@ -74,22 +74,41 @@ body{
   position:relative;
   min-height:100vh;
   display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
+  justify-content:flex-start;
+  align-items:flex-start;
+  text-align:left;
   overflow:hidden;
-  padding:0 16px;
-  background: linear-gradient(-45deg, #050d25, #0f1c3f, #1d2e5c, #2c2a57, #3f1f4f);
-  background-size: 400% 400%;
-  animation: gradientMove 15s ease infinite;
+  padding:clamp(120px, 16vh, 220px) clamp(22px, 7vw, 100px) clamp(120px, 14vh, 200px);
+  background-color:#030712;
+  background-image:
+    linear-gradient(130deg, rgba(3,6,16,.88) 0%, rgba(3,6,16,.7) 34%, rgba(5,10,22,.48) 60%, rgba(5,8,18,.82) 100%),
+    url("./Light.jpg");
+  background-size:320% 320%, cover;
+  background-position:center center, center center;
+  background-repeat:no-repeat;
 }
 
 .hero::before{
   content:"";
   position:absolute;
   inset:0;
-  background: radial-gradient(circle at 70% 60%, rgba(255, 241, 214, .22), transparent 32%);
+  background:
+    radial-gradient(circle at 68% 60%, rgba(255, 240, 214, .55), rgba(255, 240, 214, 0) 32%),
+    radial-gradient(circle at 20% 12%, rgba(255,255,255,.08), rgba(255,255,255,0) 30%);
+  mix-blend-mode:screen;
   pointer-events:none;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(-45deg, #050d25, #0f1c3f, #1d2e5c, #2c2a57, #3f1f4f);
+  background-size: 420% 420%;
+  animation: gradientMove 18s ease infinite;
+  opacity:.32;
+  pointer-events:none;
+  mix-blend-mode:soft-light;
 }
 
 @keyframes gradientMove {
@@ -103,6 +122,10 @@ body{
   z-index:2;
   color:#fff;
   text-shadow:0 8px 24px rgba(0,0,0,.45);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  max-width:640px;
 }
 
 .hero h1{
@@ -157,14 +180,28 @@ footer{
   .menu a{font-size:15px}
   .card h2{font-size:26px}
   .card p{font-size:17px}
+  .hero{
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:140px 18px 120px;
+    background-position:center 15%, center;
+  }
+  .hero-content{
+    align-items:center;
+    max-width:720px;
+  }
+  .hero-subtitle{
+    max-width:90vw;
+  }
 }
 .hero-subtitle{
   margin-top:14px;
   font-size:clamp(22px, 2.5vw, 42px);
   color:#fff;
   opacity:0;
-  white-space:nowrap;
   will-change:transform, opacity, filter;
+  max-width:min(480px, 70vw);
 }
 
 .hero-subtitle.fade-in{
