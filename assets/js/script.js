@@ -32,212 +32,184 @@ document.addEventListener("DOMContentLoaded", () => {
   loop();
 
   /**
-   * 轻量的鼠标跟随连线效果
-   * 会在鼠标经过位置生成一簇微粒，并在相邻粒子/鼠标之间绘制柔和的连线
+   * 闪烁星光背景：恒星常态微闪动，鼠标移动时附近星光被牵引汇聚、变亮
    */
   const canvas = document.createElement("canvas");
   canvas.className = "interaction-canvas";
   document.body.appendChild(canvas);
 
   const ctx = canvas.getContext("2d");
-  const colorWithAlpha = (base, alpha) => `rgba(${base.join(",")}, ${alpha})`;
-  const COLOR_BASES = {
-    node: [132, 150, 255],
-    lineNear: [146, 169, 255],
-    lineMouse: [168, 186, 255],
-    glow: [168, 186, 255],
+  const prefersReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const STAR_COUNT = prefersReduceMotion ? 140 : 240;
+  const MIN_RADIUS = 0.7;
+  const MAX_RADIUS = 2.3;
+  // px / s
+  const BASE_SPEED = prefersReduceMotion ? 8 : 12;
+  const TWINKLE_SPEED_MIN = 0.0006;
+  const TWINKLE_SPEED_RANGE = 0.0018;
+  const MOUSE_INFLUENCE_RADIUS = prefersReduceMotion ? 180 : 240;
+  const MOUSE_PULL = prefersReduceMotion ? 0.00035 : 0.0006;
+  const SPEED_DAMPING = 0.992;
+  const EDGE_MARGIN = 28;
+  const MAX_FRAME_DELTA_MS = 32; // clamp huge frame gaps to avoid jumpy movement
+  const MS_PER_FRAME_60FPS = 16.67;
+  const TWINKLE_CYCLE_MS = 60000;
+  const MOUSE_EFFECT_PERSIST_DURATION_MS = 420;
+  const MIN_DISTANCE_THRESHOLD = 0.001;
+  const MAX_PULSE = 1.4;
+  const PULSE_INCREASE_RATE = 0.04;
+  const PULSE_DECAY_RATE = 8;
+  const TWINKLE_MIN = 0.6;
+  const TWINKLE_AMPLITUDE = 0.4;
+  const TWINKLE_RADIUS_FACTOR = 0.25;
+  const PULSE_RADIUS_FACTOR = 0.45;
+  const BASE_SHADOW_BLUR = 14;
+  const PULSE_SHADOW_MULTIPLIER = 10;
+  const TWINKLE_TABLE_SIZE = 1024;
+  const TWINKLE_TABLE = Array.from({ length: TWINKLE_TABLE_SIZE }, (_, i) =>
+    Math.sin((i / TWINKLE_TABLE_SIZE) * Math.PI * 2)
+  );
+
+  function twinkleSin(angle) {
+    const normalized = angle % (Math.PI * 2);
+    const wrapped = normalized < 0 ? normalized + Math.PI * 2 : normalized;
+    const ratio = wrapped / (Math.PI * 2);
+    const index = Math.floor(ratio * TWINKLE_TABLE_SIZE) % TWINKLE_TABLE_SIZE;
+    return TWINKLE_TABLE[index];
+  }
+
+  const mouse = {
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+    active: false,
+    // Negative to ensure lastMove is considered stale until the first move event
+    lastMove: -MOUSE_EFFECT_PERSIST_DURATION_MS,
   };
-  const enableGlow = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const points = [];
-  const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2, active: false };
-  const MAX_PARTICLE_COUNT = 90;
-  const MAX_CONNECTIONS_PER_PARTICLE = 4;
-  const MAX_PARTICLE_CONNECTION_DISTANCE = 160;
-  const MAX_MOUSE_CONNECTION_DISTANCE = 190;
-  const MAX_MOUSE_LINES = 18;
-  const INITIAL_LIFE_FACTOR = 0.4;
-  const MIN_PARTICLE_LIFE = 420;
-  const PARTICLE_LIFE_RANGE = 280;
-  const RECYCLED_VELOCITY_FACTOR = 0.85;
-  // Fill alpha = BASE_NODE_ALPHA * (ALPHA_MIN_MULTIPLIER + ALPHA_RANGE_MULTIPLIER * lifeRatio)
-  const BASE_NODE_ALPHA = 0.55;
-  const ALPHA_MIN_MULTIPLIER = 0.7;
-  const ALPHA_RANGE_MULTIPLIER = 0.3;
-  const MAX_RECYCLE_POOL_SIZE = 14;
-  const MOUSE_ATTRACTION_STRENGTH = 0.0008;
-  const VELOCITY_DAMPING_FACTOR = 0.995;
-  const PARTICLE_SPAWN_SPREAD = 26;
-  const MAX_PARTICLE_VELOCITY = 0.45;
-  const DRIFT_NOISE = 0.006;
-  // Seed particles with partial life so they don't all peak brightness simultaneously
-  const INITIAL_LIFE_MAX = MIN_PARTICLE_LIFE * INITIAL_LIFE_FACTOR;
-  const PARTICLE_RADIUS = 1.6;
-  const PARTICLE_LINE_WIDTH = 1.4;
-  const MOUSE_LINE_WIDTH = 1.1;
-  const MOUSE_RELOCATE_THROTTLE_MS = 45;
-  const EDGE_RESPAWN_MARGIN = 24;
-  let lastRelocateAt = 0;
+
+  let canvasWidth = window.innerWidth;
+  let canvasHeight = window.innerHeight;
+  const stars = [];
 
   function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const dpr = window.devicePixelRatio || 1;
+    canvasWidth = window.innerWidth;
+    canvasHeight = window.innerHeight;
+    canvas.width = Math.round(canvasWidth * dpr);
+    canvas.height = Math.round(canvasHeight * dpr);
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
   resizeCanvas();
   window.addEventListener("resize", resizeCanvas);
 
-  function createParticle(x = Math.random() * canvas.width, y = Math.random() * canvas.height) {
+  function createStar(x = Math.random() * canvasWidth, y = Math.random() * canvasHeight) {
     return {
       x,
       y,
-      vx: (Math.random() - 0.5) * MAX_PARTICLE_VELOCITY,
-      vy: (Math.random() - 0.5) * MAX_PARTICLE_VELOCITY,
-      life: Math.random() * INITIAL_LIFE_MAX,
-      maxLife: MIN_PARTICLE_LIFE + Math.random() * PARTICLE_LIFE_RANGE,
+      vx: (Math.random() - 0.5) * BASE_SPEED,
+      vy: (Math.random() - 0.5) * BASE_SPEED,
+      radius: MIN_RADIUS + Math.random() * (MAX_RADIUS - MIN_RADIUS),
+      baseAlpha: 0.35 + Math.random() * 0.45,
+      twinkleOffset: Math.random() * Math.PI * 2,
+      twinkleSpeed: TWINKLE_SPEED_MIN + Math.random() * TWINKLE_SPEED_RANGE,
+      pulse: 0,
     };
   }
 
-  function recycleParticle(p, x, y) {
-    p.x = x;
-    p.y = y;
-    p.vx = (Math.random() - 0.5) * MAX_PARTICLE_VELOCITY * RECYCLED_VELOCITY_FACTOR;
-    p.vy = (Math.random() - 0.5) * MAX_PARTICLE_VELOCITY * RECYCLED_VELOCITY_FACTOR;
-    p.life = 0;
-    p.maxLife = MIN_PARTICLE_LIFE + Math.random() * PARTICLE_LIFE_RANGE;
-  }
-
-  function seedFloatingParticles() {
-    points.length = 0;
-    for (let i = 0; i < MAX_PARTICLE_COUNT; i++) {
-      points.push(createParticle());
+  function seedStars() {
+    stars.length = 0;
+    for (let i = 0; i < STAR_COUNT; i++) {
+      stars.push(createStar());
     }
   }
-  seedFloatingParticles();
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let mouseLinesDrawn = 0;
-
-    // 更新粒子状态
-    for (let i = points.length - 1; i >= 0; i--) {
-      const p = points[i];
-      p.vx += (Math.random() - 0.5) * DRIFT_NOISE;
-      p.vy += (Math.random() - 0.5) * DRIFT_NOISE;
-      p.vx *= VELOCITY_DAMPING_FACTOR;
-      p.vy *= VELOCITY_DAMPING_FACTOR;
-      p.x += p.vx;
-      p.y += p.vy;
-      p.life += 1;
-      if (p.x < -EDGE_RESPAWN_MARGIN) p.x = canvas.width + EDGE_RESPAWN_MARGIN;
-      if (p.x > canvas.width + EDGE_RESPAWN_MARGIN) p.x = -EDGE_RESPAWN_MARGIN;
-      if (p.y < -EDGE_RESPAWN_MARGIN) p.y = canvas.height + EDGE_RESPAWN_MARGIN;
-      if (p.y > canvas.height + EDGE_RESPAWN_MARGIN) p.y = -EDGE_RESPAWN_MARGIN;
-      if (p.life > p.maxLife) {
-        recycleParticle(p, Math.random() * canvas.width, Math.random() * canvas.height);
-      }
-    }
-
-    // 绘制粒子
-    for (const p of points) {
-      const lifeFactor = 1 - p.life / p.maxLife;
-      ctx.beginPath();
-      ctx.fillStyle = colorWithAlpha(
-        COLOR_BASES.node,
-        // Keep fill subtle: BASE_NODE_ALPHA * (ALPHA_MIN_MULTIPLIER + ALPHA_RANGE_MULTIPLIER * lifeFactor)
-        Math.min(1, BASE_NODE_ALPHA * (ALPHA_MIN_MULTIPLIER + ALPHA_RANGE_MULTIPLIER * lifeFactor))
-      );
-      if (enableGlow) {
-        ctx.shadowColor = colorWithAlpha(COLOR_BASES.glow, 0.35);
-        ctx.shadowBlur = 12;
-      } else {
-        ctx.shadowBlur = 0;
-      }
-      ctx.arc(p.x, p.y, PARTICLE_RADIUS, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    // 绘制连线
-    for (let i = 0; i < points.length; i++) {
-      let connections = 0;
-      for (let j = i + 1; j < points.length; j++) {
-        if (connections >= MAX_CONNECTIONS_PER_PARTICLE) break;
-        const p1 = points[i];
-        const p2 = points[j];
-        const dx = p1.x - p2.x;
-        const dy = p1.y - p2.y;
-        const dist = Math.hypot(dx, dy);
-        if (dist > MAX_PARTICLE_CONNECTION_DISTANCE) continue;
-
-        const alpha = (1 - p1.life / p1.maxLife) * (1 - dist / MAX_PARTICLE_CONNECTION_DISTANCE);
-        if (alpha <= 0) continue;
-
-        ctx.beginPath();
-        ctx.moveTo(p1.x, p1.y);
-        ctx.lineTo(p2.x, p2.y);
-        ctx.strokeStyle = colorWithAlpha(COLOR_BASES.lineNear, 0.55 * alpha);
-        ctx.lineWidth = PARTICLE_LINE_WIDTH;
-        if (enableGlow) {
-          ctx.shadowColor = colorWithAlpha(COLOR_BASES.glow, 0.35);
-          ctx.shadowBlur = 20;
-        } else {
-          ctx.shadowBlur = 0;
-        }
-        ctx.stroke();
-        connections += 1;
-      }
-
-      // Mouse-to-particle connections
-      if (mouse.active) {
-        const p = points[i];
-        const dx = p.x - mouse.x;
-        const dy = p.y - mouse.y;
-        const dist = Math.hypot(dx, dy);
-        if (dist < MAX_MOUSE_CONNECTION_DISTANCE && mouseLinesDrawn < MAX_MOUSE_LINES) {
-          const alpha = (1 - p.life / p.maxLife) * (1 - dist / MAX_MOUSE_CONNECTION_DISTANCE);
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = colorWithAlpha(COLOR_BASES.lineMouse, 0.4 * alpha);
-          ctx.lineWidth = MOUSE_LINE_WIDTH;
-          if (enableGlow) {
-            ctx.shadowColor = colorWithAlpha(COLOR_BASES.glow, 0.35);
-            ctx.shadowBlur = 18;
-          } else {
-            ctx.shadowBlur = 0;
-          }
-          ctx.stroke();
-          mouseLinesDrawn += 1;
-          // Gentle attraction for smooth line effects
-          p.vx += (mouse.x - p.x) * MOUSE_ATTRACTION_STRENGTH;
-          p.vy += (mouse.y - p.y) * MOUSE_ATTRACTION_STRENGTH;
-        }
-      }
-    }
-
-    requestAnimationFrame(draw);
-  }
+  seedStars();
 
   window.addEventListener("mousemove", (event) => {
     mouse.x = event.clientX;
     mouse.y = event.clientY;
     mouse.active = true;
-    const now = performance.now();
-    if (now - lastRelocateAt > MOUSE_RELOCATE_THROTTLE_MS && points.length) {
-      // Pick one particle randomly from the last N particles in the array to relocate near the mouse
-      const poolSize = Math.min(points.length, MAX_RECYCLE_POOL_SIZE);
-      const offset = Math.max(0, points.length - poolSize);
-      const idx = offset + Math.floor(Math.random() * poolSize);
-      recycleParticle(
-        points[idx],
-        mouse.x + (Math.random() - 0.5) * PARTICLE_SPAWN_SPREAD,
-        mouse.y + (Math.random() - 0.5) * PARTICLE_SPAWN_SPREAD
-      );
-      lastRelocateAt = now;
-    }
+    mouse.lastMove = performance.now();
   });
 
   window.addEventListener("mouseleave", () => {
     mouse.active = false;
   });
 
-  draw();
+  let lastTime = performance.now();
+  function draw(now) {
+    const delta = Math.min(MAX_FRAME_DELTA_MS, now - lastTime);
+    lastTime = now;
+    const deltaSec = delta / 1000;
+    const dampingFactor = SPEED_DAMPING ** (delta / MS_PER_FRAME_60FPS);
+    const timeForTwinkle = now % TWINKLE_CYCLE_MS;
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+    const mouseEngaged = mouse.active || now - mouse.lastMove < MOUSE_EFFECT_PERSIST_DURATION_MS;
+
+    if (mouseEngaged) {
+      ctx.save();
+      const halo = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, MOUSE_INFLUENCE_RADIUS);
+      halo.addColorStop(0, "rgba(255, 241, 224, 0.22)");
+      halo.addColorStop(0.35, "rgba(164, 199, 255, 0.16)");
+      halo.addColorStop(1, "rgba(12, 20, 38, 0)");
+      ctx.globalCompositeOperation = "screen";
+      ctx.fillStyle = halo;
+      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+      ctx.restore();
+    }
+
+    for (const star of stars) {
+      // Gentle drift
+      star.x += star.vx * deltaSec;
+      star.y += star.vy * deltaSec;
+      star.vx *= dampingFactor;
+      star.vy *= dampingFactor;
+
+      // Wrap around edges
+      if (star.x < -EDGE_MARGIN) star.x = canvasWidth + EDGE_MARGIN;
+      if (star.x > canvasWidth + EDGE_MARGIN) star.x = -EDGE_MARGIN;
+      if (star.y < -EDGE_MARGIN) star.y = canvasHeight + EDGE_MARGIN;
+      if (star.y > canvasHeight + EDGE_MARGIN) star.y = -EDGE_MARGIN;
+
+      // Mouse attraction and local brightening
+      if (mouseEngaged) {
+        const dx = mouse.x - star.x;
+        const dy = mouse.y - star.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < MOUSE_INFLUENCE_RADIUS && dist > MIN_DISTANCE_THRESHOLD) {
+          const influence = 1 - dist / MOUSE_INFLUENCE_RADIUS;
+          const pull = influence * MOUSE_PULL * deltaSec;
+          star.vx += dx * pull;
+          star.vy += dy * pull;
+          star.pulse = Math.min(MAX_PULSE, star.pulse + influence * PULSE_INCREASE_RATE);
+        }
+      }
+
+      // Pulse decay
+      star.pulse = Math.max(0, star.pulse - PULSE_DECAY_RATE * deltaSec);
+
+      // Twinkling
+      const twinklePhase = star.twinkleOffset + timeForTwinkle * star.twinkleSpeed;
+      const twinkle = TWINKLE_MIN + TWINKLE_AMPLITUDE * twinkleSin(twinklePhase);
+      const brightness = Math.min(1, star.baseAlpha * twinkle + star.pulse);
+      const radius = star.radius * (1 + twinkle * TWINKLE_RADIUS_FACTOR + star.pulse * PULSE_RADIUS_FACTOR);
+
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(220, 233, 255, ${brightness})`;
+      if (prefersReduceMotion) {
+        ctx.shadowBlur = 0;
+      } else {
+        ctx.shadowColor = `rgba(149, 186, 255, ${0.35 + brightness * 0.35})`;
+        ctx.shadowBlur = BASE_SHADOW_BLUR + star.pulse * PULSE_SHADOW_MULTIPLIER;
+      }
+      ctx.arc(star.x, star.y, radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  requestAnimationFrame(draw);
 });
