@@ -40,23 +40,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const ctx = canvas.getContext("2d");
   const prefersReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const mouse = {
-    x: window.innerWidth / 2,
-    y: window.innerHeight / 2,
-    active: false,
-    lastMove: 0,
-  };
 
   const STAR_COUNT = prefersReduceMotion ? 140 : 240;
   const MIN_RADIUS = 0.7;
   const MAX_RADIUS = 2.3;
-  const BASE_SPEED = prefersReduceMotion ? 0.02 : 0.04;
+  // px / s
+  const BASE_SPEED = prefersReduceMotion ? 8 : 12;
   const TWINKLE_SPEED_MIN = 0.0006;
   const TWINKLE_SPEED_RANGE = 0.0018;
   const MOUSE_INFLUENCE_RADIUS = prefersReduceMotion ? 180 : 240;
   const MOUSE_PULL = prefersReduceMotion ? 0.00035 : 0.0006;
   const SPEED_DAMPING = 0.992;
   const EDGE_MARGIN = 28;
+  const MAX_FRAME_DELTA_MS = 32; // clamp huge frame gaps to avoid jumpy movement
+  const MS_PER_FRAME_60FPS = 16.67;
+  const TWINKLE_CYCLE_MS = 60000;
+  const MOUSE_EFFECT_PERSIST_DURATION_MS = 420;
+  const MIN_DISTANCE_THRESHOLD = 0.001;
+  const MAX_PULSE = 1.4;
+  const PULSE_INCREASE_RATE = 0.04;
+  const PULSE_DECAY_RATE = 8;
+  const TWINKLE_MIN = 0.6;
+  const TWINKLE_AMPLITUDE = 0.4;
+  const TWINKLE_RADIUS_FACTOR = 0.25;
+  const PULSE_RADIUS_FACTOR = 0.45;
+  const BASE_SHADOW_BLUR = 14;
+  const PULSE_SHADOW_MULTIPLIER = 10;
+  const TWINKLE_TABLE_SIZE = 1024;
+  const TWINKLE_TABLE = Array.from({ length: TWINKLE_TABLE_SIZE }, (_, i) =>
+    Math.sin((i / TWINKLE_TABLE_SIZE) * Math.PI * 2)
+  );
+
+  function twinkleSin(angle) {
+    const normalized = angle % (Math.PI * 2);
+    const wrapped = normalized < 0 ? normalized + Math.PI * 2 : normalized;
+    const ratio = wrapped / (Math.PI * 2);
+    const index = Math.floor(ratio * TWINKLE_TABLE_SIZE) % TWINKLE_TABLE_SIZE;
+    return TWINKLE_TABLE[index];
+  }
+
+  const mouse = {
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+    active: false,
+    // Negative to ensure lastMove is considered stale until the first move event
+    lastMove: -MOUSE_EFFECT_PERSIST_DURATION_MS,
+  };
 
   let canvasWidth = window.innerWidth;
   let canvasHeight = window.innerHeight;
@@ -110,11 +139,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let lastTime = performance.now();
   function draw(now) {
-    const delta = Math.min(32, now - lastTime);
+    const delta = Math.min(MAX_FRAME_DELTA_MS, now - lastTime);
     lastTime = now;
+    const deltaSec = delta / 1000;
+    const dampingFactor = SPEED_DAMPING ** (delta / MS_PER_FRAME_60FPS);
+    const timeForTwinkle = now % TWINKLE_CYCLE_MS;
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    const mouseEngaged = mouse.active || now - mouse.lastMove < 420;
+    const mouseEngaged = mouse.active || now - mouse.lastMove < MOUSE_EFFECT_PERSIST_DURATION_MS;
 
     if (mouseEngaged) {
       ctx.save();
@@ -129,44 +161,49 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     for (const star of stars) {
-      // 轻微漂移
-      star.x += star.vx * delta;
-      star.y += star.vy * delta;
-      star.vx *= SPEED_DAMPING;
-      star.vy *= SPEED_DAMPING;
+      // Gentle drift
+      star.x += star.vx * deltaSec;
+      star.y += star.vy * deltaSec;
+      star.vx *= dampingFactor;
+      star.vy *= dampingFactor;
 
-      // 边界回环
+      // Wrap around edges
       if (star.x < -EDGE_MARGIN) star.x = canvasWidth + EDGE_MARGIN;
       if (star.x > canvasWidth + EDGE_MARGIN) star.x = -EDGE_MARGIN;
       if (star.y < -EDGE_MARGIN) star.y = canvasHeight + EDGE_MARGIN;
       if (star.y > canvasHeight + EDGE_MARGIN) star.y = -EDGE_MARGIN;
 
-      // 鼠标牵引聚光
+      // Mouse attraction and local brightening
       if (mouseEngaged) {
         const dx = mouse.x - star.x;
         const dy = mouse.y - star.y;
         const dist = Math.hypot(dx, dy);
-        if (dist < MOUSE_INFLUENCE_RADIUS && dist > 0.001) {
+        if (dist < MOUSE_INFLUENCE_RADIUS && dist > MIN_DISTANCE_THRESHOLD) {
           const influence = 1 - dist / MOUSE_INFLUENCE_RADIUS;
-          const pull = influence * MOUSE_PULL * delta;
+          const pull = influence * MOUSE_PULL * deltaSec;
           star.vx += dx * pull;
           star.vy += dy * pull;
-          star.pulse = Math.min(1.4, star.pulse + influence * 0.04);
+          star.pulse = Math.min(MAX_PULSE, star.pulse + influence * PULSE_INCREASE_RATE);
         }
       }
 
-      // 脉冲衰减
-      star.pulse = Math.max(0, star.pulse - 0.008 * delta);
+      // Pulse decay
+      star.pulse = Math.max(0, star.pulse - PULSE_DECAY_RATE * deltaSec);
 
-      // 闪烁
-      const twinkle = 0.6 + 0.4 * Math.sin(star.twinkleOffset + now * star.twinkleSpeed);
+      // Twinkling
+      const twinklePhase = star.twinkleOffset + timeForTwinkle * star.twinkleSpeed;
+      const twinkle = TWINKLE_MIN + TWINKLE_AMPLITUDE * twinkleSin(twinklePhase);
       const brightness = Math.min(1, star.baseAlpha * twinkle + star.pulse);
-      const radius = star.radius * (1 + twinkle * 0.25 + star.pulse * 0.45);
+      const radius = star.radius * (1 + twinkle * TWINKLE_RADIUS_FACTOR + star.pulse * PULSE_RADIUS_FACTOR);
 
       ctx.beginPath();
       ctx.fillStyle = `rgba(220, 233, 255, ${brightness})`;
-      ctx.shadowColor = `rgba(149, 186, 255, ${0.35 + brightness * 0.35})`;
-      ctx.shadowBlur = prefersReduceMotion ? 10 : 14 + star.pulse * 10;
+      if (prefersReduceMotion) {
+        ctx.shadowBlur = 0;
+      } else {
+        ctx.shadowColor = `rgba(149, 186, 255, ${0.35 + brightness * 0.35})`;
+        ctx.shadowBlur = BASE_SHADOW_BLUR + star.pulse * PULSE_SHADOW_MULTIPLIER;
+      }
       ctx.arc(star.x, star.y, radius, 0, Math.PI * 2);
       ctx.fill();
     }
