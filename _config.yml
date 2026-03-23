@@ -1,15 +1,15 @@
 # Site
 
-title: 你的名字的小站
-subtitle: 记录学习、项目和生活
+title: wchikaru‘s Blog
+subtitle: 白日春不渡，黑夜万梦星
 
 description: 一个放笔记、项目与碎碎念的个人博客
-author: 你的名字
+author: wcHikaru
 language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
-url: https://your-github-username.github.io
+url: https://Hikaru-1216.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
