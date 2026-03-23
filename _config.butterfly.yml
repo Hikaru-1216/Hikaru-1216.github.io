@@ -197,6 +197,6 @@ comments:
 
 inject:
   head:
-    - /css/custom.css
+    - <link rel="stylesheet" href="/css/custom.css">
   bottom:
-    - /js/bubbles.js
+    - <script src="/css/source/js/bubbles.js"></script>
