@@ -194,3 +194,9 @@ share:
 comments:
   use:
   text: true
+
+inject:
+  head:
+    - /css/custom.css
+  bottom:
+    - /js/bubbles.js
