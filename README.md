@@ -1,6 +1,6 @@
 # Hexo + Butterfly GitHub Pages Starter
 
-这是一个按 **Hexo + Butterfly** 思路整理的个人博客起步模板，风格和 `xw-soleil.github.io` 这一类 GitHub Pages 博客比较接近：有首页卡片流、关于页、标签页、分类页、友链页和侧边栏信息卡。
+这是一个按 **Hexo + Butterfly** 思路整理的个人博客起步模板：有首页卡片流、关于页、标签页、分类页、友链页和侧边栏信息卡。
 
 ## 你需要先改的 6 处内容
 
