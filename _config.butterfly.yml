@@ -15,7 +15,7 @@ nav:
 # Social links
 social:
   fab fa-github: https://github.com/your-github-username || GitHub
-  fas fa-envelope: mailto:you@example.com || Email
+  fas fa-envelope: mailto:3230102682@zju.edu.cn || Email
 
 # Image
 favicon: /img/favicon.svg
@@ -90,7 +90,7 @@ aside:
       enable: true
       icon: fab fa-github
       text: Follow Me
-      link: https://github.com/your-github-username
+      link: https://github.com/Hikaru-1216
   card_announcement:
     enable: true
     content: 欢迎来到我的个人小站，这里会更新笔记、项目和一些生活记录。
