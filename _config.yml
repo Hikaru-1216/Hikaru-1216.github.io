@@ -9,7 +9,7 @@ language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
-url: https://Hikaru-1216.github.io
+url: https://hikaru-1216.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
