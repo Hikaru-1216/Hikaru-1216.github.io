@@ -3,10 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!el) return;
 
   const lines = [
-    "Suffering is the price of freedom",
-    "Code. Learn. Share.",
-    "Stay hungry, stay foolish.",
-    "向光而行，步履不停。"
+    "向光而行，步履不停。",
+    "记录每一次实验的灵感。",
+    "Microelectronics · Design · Reflect",
+    "Stay curious, stay gentle."
   ];
 
   let i = 0;
