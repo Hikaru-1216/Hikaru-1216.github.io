@@ -199,4 +199,4 @@ inject:
   head:
     - <link rel="stylesheet" href="/css/custom.css">
   bottom:
-    - <script src="/css/source/js/bubbles.js"></script>
+    - <script src="/js/bubbles.js"></script>
