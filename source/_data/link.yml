@@ -1,0 +1,27 @@
+- class_name: 我的链接
+  class_desc: 先把最常用的地方放在这里
+  link_list:
+    - name: GitHub 主页
+      link: https://github.com/your-github-username
+      avatar: /img/avatar.svg
+      descr: 我的 GitHub 主页
+    - name: 邮箱
+      link: mailto:you@example.com
+      avatar: /img/avatar.svg
+      descr: 欢迎联系我
+
+- class_name: 常用站点
+  class_desc: 一些我经常会打开的地方
+  link_list:
+    - name: Hexo
+      link: https://hexo.io/
+      avatar: https://hexo.io/logo.svg
+      descr: 静态博客框架
+    - name: Butterfly
+      link: https://butterfly.js.org/
+      avatar: https://butterfly.js.org/img/butterfly-icon.png
+      descr: Hexo 的卡片风主题
+    - name: GitHub Pages
+      link: https://docs.github.com/en/pages
+      avatar: https://github.githubassets.com/favicons/favicon.svg
+      descr: GitHub 官方静态站点服务

@@ -1,0 +1,196 @@
+# Navigation
+nav:
+  logo:
+  display_title: true
+  display_post_title: true
+  fixed: false
+  menu:
+    首页: / || fas fa-home
+    归档: /archives/ || fas fa-box-archive
+    标签: /tags/ || fas fa-tags
+    分类: /categories/ || fas fa-folder-open
+    Link: /link/ || fas fa-link
+    关于: /about/ || fas fa-user
+
+# Social links
+social:
+  fab fa-github: https://github.com/your-github-username || GitHub
+  fas fa-envelope: mailto:you@example.com || Email
+
+# Image
+favicon: /img/favicon.svg
+avatar:
+  img: /img/avatar.svg
+  effect: true
+
+disable_top_img: false
+default_top_img: /img/home-bg.svg
+index_img: /img/home-bg.svg
+archive_img: /img/home-bg.svg
+tag_img: /img/home-bg.svg
+category_img: /img/home-bg.svg
+footer_img: false
+
+background:
+cover:
+  index_enable: true
+  aside_enable: true
+  archives_enable: true
+  default_cover:
+    - /img/post-1.svg
+    - /img/post-2.svg
+
+# Home page
+index_site_info_top: 38%
+index_layout: 3
+index_post_content:
+  method: 2
+  length: 180
+
+subtitle:
+  enable: true
+  effect: true
+  source: false
+  sub:
+    - 记录学习
+    - 展示项目
+    - 留下生活碎片
+
+# Post meta
+post_meta:
+  page:
+    date_type: created
+    date_format: date
+    categories: true
+    tags: false
+    label: true
+  post:
+    position: left
+    date_type: both
+    date_format: date
+    categories: true
+    tags: true
+    label: true
+
+# Aside
+aside:
+  enable: true
+  hide: false
+  button: true
+  mobile: true
+  position: right
+  display:
+    archive: true
+    tag: true
+    category: true
+  card_author:
+    enable: true
+    description: 热爱学习、项目和折腾的你
+    button:
+      enable: true
+      icon: fab fa-github
+      text: Follow Me
+      link: https://github.com/your-github-username
+  card_announcement:
+    enable: true
+    content: 欢迎来到我的个人小站，这里会更新笔记、项目和一些生活记录。
+  card_recent_post:
+    enable: true
+    limit: 5
+    sort: date
+  card_categories:
+    enable: true
+    limit: 8
+    expand: none
+  card_tags:
+    enable: true
+    limit: 30
+    color: false
+    orderby: random
+    order: 1
+  card_archives:
+    enable: true
+    type: monthly
+    format: MMMM YYYY
+    order: -1
+    limit: 8
+  card_webinfo:
+    enable: true
+    post_count: true
+    last_push_date: true
+    runtime_date: 2026-03-23 00:00:00
+
+# Footer
+footer:
+  nav:
+  owner:
+    enable: true
+    since: 2026
+  copyright:
+    enable: true
+    version: true
+  custom_text: 用 Hexo + Butterfly 搭建
+
+# Search
+search:
+  use: local_search
+  placeholder: 搜索文章 / 标签 / 关键词
+
+local_search:
+  preload: false
+  top_n_per_article: 1
+  unescape: false
+  pagination:
+    enable: false
+  hitsPerPage: 8
+  CDN:
+
+# Code blocks
+code_blocks:
+  theme: light
+  macStyle: false
+  height_limit: false
+  word_wrap: false
+  copy: true
+  language: true
+  shrink: false
+  fullpage: false
+
+# Right side buttons
+readmode: true
+rightside_scroll_percent: false
+translate:
+  enable: false
+darkmode:
+  enable: true
+  button: true
+  autoChangeMode: false
+
+# TOC
+toc:
+  post: true
+  page: false
+  number: true
+  expand: false
+  style_simple: false
+  scroll_percent: true
+
+# Copy
+copy:
+  enable: true
+  copyright:
+    enable: false
+  limit_count: 150
+
+# Busuanzi off by default
+busuanzi:
+  site_uv: false
+  site_pv: false
+  page_pv: false
+
+# Share / comments disabled in starter
+share:
+  use:
+comments:
+  use:
+  text: true
