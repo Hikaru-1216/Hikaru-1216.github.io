@@ -198,4 +198,5 @@ comments:
 
 inject:
   head: []
-  bottom: []
+  bottom:
+    - <script size="90" alpha="0.1" zIndex="-1" src="https://cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
