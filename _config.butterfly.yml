@@ -20,7 +20,7 @@ social:
 # Image
 favicon: /img/favicon.svg
 avatar:
-  img: /img/avatar.svg
+  img: /img/face.png
   effect: true
 
 disable_top_img: false
