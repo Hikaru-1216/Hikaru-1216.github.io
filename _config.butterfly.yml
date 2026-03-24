@@ -86,7 +86,7 @@ aside:
     category: true
   card_author:
     enable: true
-    description: ZJU|ISEE|Microelectronics
+    description: ZJU | ISEE | Microelectronics
     button:
       enable: true
       icon: fab fa-github
