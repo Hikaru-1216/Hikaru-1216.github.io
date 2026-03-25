@@ -10,6 +10,6 @@
 /* 2. 将字体应用到 Butterfly 主题的博客主标题 (#site-title) */
 #site-title {
   font-family: 'DancingScript', cursive !important;
-  font-size: 3.5em; /* 字体大小可以根据你的喜好调整 */
+  font-size: 4.5em; /* 字体大小可以根据你的喜好调整 */
   letter-spacing: 2px; /* 增加一点字间距让花体更好看 */
 }
