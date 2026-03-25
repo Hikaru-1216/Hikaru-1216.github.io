@@ -1,59 +1,15 @@
-/* 只给首页文章列表区域加气泡背景 */
-#recent-posts.has-bubbles {
-  position: relative;
-  overflow: hidden;
+/* 1. 注册本地下载的花体字 */
+@font-face {
+  font-family: 'DancingScript';
+  src: url('/font/DancingScript-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
-/* 确保文章卡片压在气泡上面 */
-#recent-posts.has-bubbles > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* 最底层气泡容器 */
-#recent-posts .bubble-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-/* 单个气泡 */
-#recent-posts .bubble {
-  position: absolute;
-  bottom: -80px;
-  border-radius: 50%;
-  opacity: 0.08;
-  background: radial-gradient(
-    circle at 30% 30%,
-    rgba(255, 255, 255, 0.98) 0%,
-    rgba(255, 255, 255, 0.72) 30%,
-    rgba(140, 198, 255, 0.28) 68%,
-    rgba(140, 198, 255, 0.12) 100%
-  );
-  box-shadow:
-    inset 0 0 10px rgba(255, 255, 255, 0.75),
-    0 0 14px rgba(140, 198, 255, 0.24);
-  animation: bubble-rise linear infinite;
-  will-change: transform, opacity;
-}
-
-/* 从下往上，轻微左右漂移 */
-@keyframes bubble-rise {
-  0% {
-    transform: translate3d(0, 0, 0) scale(0.85);
-    opacity: 0.08;
-  }
-  12% {
-    opacity: 0.34;
-  }
-  50% {
-    transform: translate3d(var(--drift, 10px), -38vh, 0) scale(1);
-    opacity: 0.24;
-  }
-  100% {
-    transform: translate3d(calc(var(--drift, 10px) * -1), -95vh, 0) scale(1.06);
-    opacity: 0;
-  }
+/* 2. 将字体应用到 Butterfly 主题的博客主标题 (#site-title) */
+#site-title {
+  font-family: 'DancingScript', cursive !important;
+  font-size: 3.5em; /* 字体大小可以根据你的喜好调整 */
+  letter-spacing: 2px; /* 增加一点字间距让花体更好看 */
 }
