@@ -13,3 +13,49 @@
   font-size: 4.5em; /* 字体大小可以根据你的喜好调整 */
   letter-spacing: 2px; /* 增加一点字间距让花体更好看 */
 }
+
+/* 课程资料文章中的 PDF 预览与下载控件 */
+.pdf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+#article-container .pdf-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1rem;
+  border-radius: 0.55rem;
+  background: #49b1f5;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#article-container .pdf-button:hover {
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 0.35rem 0.8rem rgba(73, 177, 245, 0.28);
+}
+
+#article-container .pdf-button-download {
+  background: #00c4b6;
+}
+
+.pdf-preview {
+  width: 100%;
+  height: 680px;
+  margin: 0 0 2rem;
+  border: 1px solid rgba(144, 147, 153, 0.35);
+  border-radius: 0.75rem;
+  background: #f5f7fa;
+}
+
+@media screen and (max-width: 768px) {
+  .pdf-preview {
+    height: 520px;
+  }
+}
