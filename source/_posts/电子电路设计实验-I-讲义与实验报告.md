@@ -87,6 +87,4 @@ top_img: /img/post-2.svg
 </div>
 <iframe class="pdf-preview" src="/downloads/electronic-circuit-design-i/lab7/report.pdf#view=FitH" title="实验 7 集成运算放大器应用电路研究 II 报告预览" loading="lazy"></iframe>
 
-## 目录说明
 
-讲义和各次实验报告分别存放在独立目录中，后续若补充修订版，也会继续沿用这一结构。
