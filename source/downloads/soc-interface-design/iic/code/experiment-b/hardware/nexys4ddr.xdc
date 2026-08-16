@@ -1,0 +1,14 @@
+## Clock signal
+set_property -dict { PACKAGE_PIN E3 IOSTANDARD LVCMOS33 } [get_ports { sys_clock }]
+create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports { sys_clock }]
+
+## Reset signal
+set_property -dict { PACKAGE_PIN C12 IOSTANDARD LVCMOS33 } [get_ports { reset }]
+
+## USB-RS232 Interface
+set_property -dict { PACKAGE_PIN C4 IOSTANDARD LVCMOS33 } [get_ports { UART_0_rxd }]
+set_property -dict { PACKAGE_PIN D4 IOSTANDARD LVCMOS33 } [get_ports { UART_0_txd }]
+
+## IIC Temperature Sensor
+set_property -dict { PACKAGE_PIN C14 IOSTANDARD LVCMOS33 } [get_ports { scl_0 }]
+set_property -dict { PACKAGE_PIN C15 IOSTANDARD LVCMOS33 } [get_ports { sda_0 }]
