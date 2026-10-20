@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="数字集成电路设计课程笔记目录，按期中考试前后浏览 Chapter 1–14。">
+  <title>数字集成电路设计 · 课程笔记</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-synthesis: none;
+      background: #f7f8fa;
+      color: #17243a;
+      --ink: #17243a;
+      --muted: #5b6778;
+      --line: #dce2e8;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; min-width: 320px; }
+    a { color: inherit; }
+    .skip-link {
+      position: absolute;
+      top: -60px;
+      left: 16px;
+      z-index: 10;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: #fff;
+    }
+    .skip-link:focus { top: 16px; }
+    .shell { width: min(1200px, calc(100% - 48px)); margin-inline: auto; }
+
+    .site-header {
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 72px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 750;
+      letter-spacing: .02em;
+    }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 31px;
+      height: 31px;
+      border: 2px solid #264c81;
+      border-radius: 8px;
+      color: #264c81;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .header-nav { display: flex; flex-wrap: wrap; gap: 6px; }
+    .header-nav a {
+      padding: 9px 12px;
+      border-radius: 8px;
+      color: #40516a;
+      font-size: 14px;
+      font-weight: 650;
+      text-decoration: none;
+    }
+    .header-nav a:hover { background: #f0f4f8; color: #183b6a; }
+
+    .intro { padding-block: 60px 44px; }
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #456990;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(32px, 4.8vw, 56px);
+      font-weight: 760;
+      letter-spacing: -.045em;
+      line-height: 1.18;
+    }
+    .intro p:last-child {
+      max-width: 680px;
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+    .overview { display: grid; gap: 22px; padding-bottom: 70px; }
+
+    .term {
+      --accent: #245a91;
+      --wash: #e9f1fa;
+      display: grid;
+      grid-template-columns: minmax(200px, 250px) minmax(0, 1fr);
+      gap: 26px;
+      padding: 26px;
+      border: 1px solid #dbe4ec;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: 0 10px 32px rgba(22, 43, 68, .045);
+      scroll-margin-top: 24px;
+    }
+    .term--after { --accent: #a54c38; --wash: #fbeee8; border-color: #eaded9; }
+    .term-intro {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: 100%;
+      padding: 22px;
+      border-radius: 16px;
+      background: var(--wash);
+    }
+    .term-index {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    .term h2 {
+      margin: 28px 0 8px;
+      font-size: clamp(24px, 2.4vw, 30px);
+      letter-spacing: -.03em;
+      line-height: 1.25;
+    }
+    .term-intro p {
+      margin: 0;
+      color: #526174;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .term-range {
+      margin-top: auto;
+      padding-top: 28px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 750;
+    }
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      align-content: start;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .chapter-grid a {
+      display: flex;
+      flex-direction: column;
+      min-height: 156px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      text-decoration: none;
+      transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+    }
+    .chapter-grid a:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 22px rgba(22, 43, 68, .08);
+    }
+    a:focus-visible { outline: 3px solid #e2a728; outline-offset: 3px; }
+    .chapter-number {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+    .chapter-title {
+      margin-top: 22px;
+      font-size: 15px;
+      font-weight: 740;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+    .chapter-subtitle {
+      margin-top: 5px;
+      color: #667386;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .chapter-arrow {
+      align-self: flex-end;
+      margin-top: auto;
+      color: var(--accent);
+      font-size: 20px;
+      line-height: 1;
+    }
+    .site-footer {
+      padding-block: 22px 28px;
+      border-top: 1px solid var(--line);
+      color: #687587;
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .term { grid-template-columns: 1fr; gap: 18px; }
+      .term-intro { min-height: 0; }
+      .term h2 { margin-top: 12px; }
+      .term-range { padding-top: 12px; }
+    }
+    @media (max-width: 720px) {
+      .shell { width: min(100% - 32px, 560px); }
+      .header-inner { min-height: 64px; }
+      .brand { font-size: 13px; }
+      .header-nav a { padding: 8px; font-size: 12px; }
+      .intro { padding-block: 44px 30px; }
+      .intro p:last-child { font-size: 14px; }
+      .term { padding: 14px; border-radius: 17px; }
+      .term-intro { padding: 18px; }
+      .chapter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .chapter-grid a { min-height: 150px; }
+    }
+    @media (max-width: 420px) {
+      .brand { gap: 7px; }
+      .brand-mark { width: 27px; height: 27px; }
+      .chapter-grid { grid-template-columns: 1fr; gap: 8px; }
+      .chapter-grid a { padding: 13px; }
+      .chapter-title { font-size: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .chapter-grid a { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳转到课程目录</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="./" aria-label="数字集成电路设计课程笔记首页">
+        <span class="brand-mark" aria-hidden="true">IC</span>
+        <span>数字集成电路设计</span>
+      </a>
+      <nav class="header-nav" aria-label="页面导航">
+        <a href="#before-midterm">期中前</a>
+        <a href="#after-midterm">期中后</a>
+        <a href="/">博客首页</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="shell">
+    <div class="intro">
+      <p class="eyebrow">Digital Integrated Circuit Design / Course Notes</p>
+      <h1>数字集成电路设计<br>课程笔记</h1>
+      <p>按课程进度浏览 14 章笔记。期中范围到 Chapter 7 Sequential Logic 为止；点击章节卡片进入对应内容。</p>
+    </div>
+
+    <div class="overview">
+      <section id="before-midterm" class="term" aria-labelledby="before-heading">
+        <div class="term-intro">
+          <span class="term-index">PART 01 / BEFORE MIDTERM</span>
+          <h2 id="before-heading">期中考试前</h2>
+          <p>从集成电路基础、器件和导线，到组合逻辑与时序逻辑。</p>
+          <span class="term-range">Chapter 01 — 07 · 共 7 章</span>
+        </div>
+        <ol class="chapter-grid" aria-label="期中考试前章节">
+          <li><a href="chapters/chapter-01.html"><span class="chapter-number">Chapter 01</span><span class="chapter-title">Introduction to IC</span><span class="chapter-subtitle">集成电路导论</span><span class="chapter-arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="chapters/chapter-02.html"><span class="chapter-number">Chapter 02</span><span class="chapter-title">Manufacturing Process</span><span class="chapter-subtitle">制造工艺</span><span class="chapter-arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="chapters/chapter-03.html"><span class="chapter-number">Chapter 03</span><span class="chapter-title">Devices</span><span class="chapter-subtitle">器件</span><span class="chapter-arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="chapters/chapter-04.html"><span class="chapter-number">Chapter 04</span><span class="chapter-title">Wire</span><span class="chapter-subtitle">导线</span><span class="chapter-arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="chapters/chapter-05.html"><span class="chapter-number">Chapter 05</span><span class="chapter-title">Inverter</span><span class="chapter-subtitle">反相器</span><span class="chapter-arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="chapters/chapter-06.html"><span class="chapter-number">Chapter 06</span><span class="chapter-title">Combinational Logic Gates</span><span class="chapter-subtitle">组合逻辑门</span><span class="chapter-arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="chapters/chapter-07.html"><span class="chapter-number">Chapter 07</span><span class="chapter-title">Sequential Logic</span><span class="chapter-subtitle">时序逻辑</span><span class="chapter-arrow" aria-hidden="true">↗</span></a></li>
+        </ol>
+      </section>
+
+      <section id="after-midterm" class="term term--after" aria-labelledby="after-heading">
+        <div class="term-intro">
+          <span class="term-index">PART 02 / AFTER MIDTERM</span>
+          <h2 id="after-heading">期中考试后</h2>
+          <p>继续学习速度、功耗与互连，并延伸到时序、算术电路、存储器和 EDA。</p>
+          <span class="term-range">Chapter 08 — 14 · 共 7 章</span>
+        </div>
+        <ol class="chapter-grid" start="8" aria-label="期中考试后章节">
+          <li><a href="chapters/chapter-08.html"><span class="chapter-number">Chapter 08</span><span class="chapter-title">Speed</span><span class="chapter-subtitle">速度</span><span class="chapter-arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="chapters/chapter-09.html"><span class="chapter-number">Chapter 09</span><span class="chapter-title">Power</span><span class="chapter-subtitle">功耗</span><span class="chapter-arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="chapters/chapter-10.html"><span class="chapter-number">Chapter 10</span><span class="chapter-title">Interconnect</span><span class="chapter-subtitle">互连</span><span class="chapter-arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="chapters/chapter-11.html"><span class="chapter-number">Chapter 11</span><span class="chapter-title">Timing</span><span class="chapter-subtitle">时序</span><span class="chapter-arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="chapters/chapter-12.html"><span class="chapter-number">Chapter 12</span><span class="chapter-title">Arithmetic</span><span class="chapter-subtitle">算术电路</span><span class="chapter-arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="chapters/chapter-13.html"><span class="chapter-number">Chapter 13</span><span class="chapter-title">Memory</span><span class="chapter-subtitle">存储器</span><span class="chapter-arrow" aria-hidden="true">↗</span></a></li>
+          <li><a href="chapters/chapter-14.html"><span class="chapter-number">Chapter 14</span><span class="chapter-title">Test, Verification &amp; EDA Tools</span><span class="chapter-subtitle">测试、验证与 EDA 工具</span><span class="chapter-arrow" aria-hidden="true">↗</span></a></li>
+        </ol>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">数字集成电路设计 · 课程笔记目录</div>
+  </footer>
+</body>
+</html>
