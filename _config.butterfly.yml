@@ -4,14 +4,15 @@ nav:
   display_title: true
   display_post_title: true
   fixed: false
-  menu:
-    首页: / || fas fa-home
-    归档: /archives/ || fas fa-box-archive
-    标签: /tags/ || fas fa-tags
-    分类: /categories/ || fas fa-folder-open
-    数字集成电路设计: /digital-integrated-circuit-design/ || fas fa-microchip
-    Link: /link/ || fas fa-link
-    关于: /about/ || fas fa-user
+
+menu:
+  首页: / || fas fa-home
+  归档: /archives/ || fas fa-box-archive
+  标签: /tags/ || fas fa-tags
+  分类: /categories/ || fas fa-folder-open
+  数字集成电路设计: /digital-integrated-circuit-design/ || fas fa-microchip
+  Link: /link/ || fas fa-link
+  关于: /about/ || fas fa-user
 
 # Social links
 social:
