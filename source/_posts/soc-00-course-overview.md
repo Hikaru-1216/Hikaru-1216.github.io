@@ -44,31 +44,31 @@ top_img: /img/post-2.svg
     <span class="soc-chapter-no">01</span>
     <span class="soc-chapter-title">Hello World</span>
     <span class="soc-chapter-sub">MicroBlaze 最小系统与 Vitis 入门</span>
-    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip wait">视频</span><span class="soc-chip wait">报告</span></span>
+    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip wait">视频</span></span>
   </a>
   <a class="soc-chapter" href="#uart">
     <span class="soc-chapter-no">02</span>
     <span class="soc-chapter-title">UART</span>
     <span class="soc-chapter-sub">自定义 AXI UART IP 与 GPIO 扩展</span>
-    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip wait">视频</span><span class="soc-chip wait">报告</span></span>
+    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip wait">视频</span><span class="soc-chip ok">报告</span></span>
   </a>
   <a class="soc-chapter" href="#iic">
     <span class="soc-chapter-no">03</span>
     <span class="soc-chapter-title">IIC</span>
     <span class="soc-chapter-sub">AXI IIC 温度读取与自定义 IIC IP</span>
-    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip wait">视频</span><span class="soc-chip wait">报告</span></span>
+    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip wait">视频</span><span class="soc-chip ok">报告</span></span>
   </a>
   <a class="soc-chapter" href="#spi">
     <span class="soc-chapter-no">04</span>
     <span class="soc-chapter-title">SPI</span>
     <span class="soc-chapter-sub">AXI Quad SPI 与自定义 SPI IP</span>
-    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip wait">视频</span><span class="soc-chip wait">报告</span></span>
+    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip wait">视频</span><span class="soc-chip ok">报告</span></span>
   </a>
   <a class="soc-chapter" href="#capstone">
     <span class="soc-chapter-no">05</span>
     <span class="soc-chapter-title">大作业</span>
     <span class="soc-chapter-sub">片上强化学习 Flappy Bird</span>
-    <span class="soc-chips"><span class="soc-chip link">开源仓库</span><span class="soc-chip wait">报告</span></span>
+    <span class="soc-chips"><span class="soc-chip link">开源仓库</span><span class="soc-chip ok">报告</span></span>
   </a>
 </div>
 
@@ -134,8 +134,8 @@ top_img: /img/post-2.svg
     <p>原始录屏约 158 MB，压缩或迁移到视频平台后补充。</p>
   </div>
   <div class="soc-res">
-    <div class="soc-res-head">实验报告<span class="soc-chip wait">脱敏中</span></div>
-    <p>报告正在去除个人信息，完成后在这里提供下载。</p>
+    <div class="soc-res-head">实验报告<span class="soc-chip none">无</span></div>
+    <p>本实验为入门练习，不需要提交实验报告。</p>
   </div>
 </div>
 
@@ -217,8 +217,9 @@ UART IP 由 AXI4-Lite 从接口、接收器、发送器、波特率时钟和 FIF
     <p>原始录屏约 202 MB，压缩或迁移到视频平台后补充。</p>
   </div>
   <div class="soc-res">
-    <div class="soc-res-head">实验报告<span class="soc-chip wait">脱敏中</span></div>
-    <p>报告正在去除个人信息，完成后在这里提供下载。</p>
+    <div class="soc-res-head">实验报告<span class="soc-chip ok">可下载</span></div>
+    <p>已脱敏，含 Module A/B 设计步骤、调试问题与上板结果，共 12 页。</p>
+    <a class="soc-btn" href="/downloads/soc-interface-design/uart/uart-report.pdf" target="_blank" rel="noopener">查看报告 PDF</a>
   </div>
 </div>
 
@@ -286,8 +287,9 @@ MicroBlaze 通过 AXI IIC 的寄存器和 FIFO 发出 START、器件地址、寄
     <p>原始录屏约 118 MB，压缩或迁移到视频平台后补充。</p>
   </div>
   <div class="soc-res">
-    <div class="soc-res-head">实验报告<span class="soc-chip wait">脱敏中</span></div>
-    <p>报告正在去除个人信息，完成后在这里提供下载。</p>
+    <div class="soc-res-head">实验报告<span class="soc-chip ok">可下载</span></div>
+    <p>已脱敏，含 AXI IIC 与自定义 IIC IP 的设计、调试与温度测试，共 9 页。</p>
+    <a class="soc-btn" href="/downloads/soc-interface-design/iic/iic-report.pdf" target="_blank" rel="noopener">查看报告 PDF</a>
   </div>
 </div>
 
@@ -351,8 +353,9 @@ Vitis 程序直接访问 AXI Quad SPI 寄存器，完成片选、发送和接收
     <p>原始录屏约 71 MB，压缩或迁移到视频平台后补充。</p>
   </div>
   <div class="soc-res">
-    <div class="soc-res-head">实验报告<span class="soc-chip wait">脱敏中</span></div>
-    <p>报告正在去除个人信息，完成后在这里提供下载。</p>
+    <div class="soc-res-head">实验报告<span class="soc-chip ok">可下载</span></div>
+    <p>已脱敏，含 AXI Quad SPI 与自定义 SPI IP 的设计、调试与 ADXL362 测试，共 9 页。</p>
+    <a class="soc-btn" href="/downloads/soc-interface-design/spi/spi-report.pdf" target="_blank" rel="noopener">查看报告 PDF</a>
   </div>
 </div>
 
@@ -413,8 +416,9 @@ MicroBlaze 负责配置超参数、读取统计并输出串口信息，不参与
     <p>上板演示视频随开源仓库一起维护。</p>
   </div>
   <div class="soc-res">
-    <div class="soc-res-head">实验报告<span class="soc-chip wait">脱敏中</span></div>
-    <p>个人报告去除个人信息后在这里提供；技术细节以开源仓库为准。</p>
+    <div class="soc-res-head">实验报告<span class="soc-chip ok">可下载</span></div>
+    <p>已脱敏，含原理、RTL 架构、LCD 渲染、验证与上板结果，共 33 页。</p>
+    <a class="soc-btn" href="/downloads/soc-interface-design/capstone/capstone-report.pdf" target="_blank" rel="noopener">查看报告 PDF</a>
   </div>
 </div>
 
