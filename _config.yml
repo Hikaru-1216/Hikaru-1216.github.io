@@ -82,9 +82,9 @@ ignore:
 
 # Extensions
 
-theme: butterfly
+theme: redefine
 
-# Search database for Butterfly local search
+# Search database for local search (hexo-generator-searchdb)
 search:
   path: search.xml
   field: post

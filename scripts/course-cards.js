@@ -1,6 +1,7 @@
 'use strict';
 
 // {% course_cards %}：读取 source/_data/courses.yml，渲染课程资源中心卡片。
+// not-markdown：让 Redefine 主题的正文排版（下划线、列表圆点、标题字号）跳过卡片内部元素。
 const STATUS = {
   ongoing: { text: '更新中', cls: 'ongoing' },
   done: { text: '已完结', cls: 'done' },
@@ -24,9 +25,9 @@ hexo.extend.tag.register('course_cards', function () {
     const total = (c.counts || []).reduce((n, x) => n + (Number(x.num) || 0), 0);
     const counts = (c.counts || []).map(x =>
       `<span class="course-card__count"><b>${esc(x.num)}</b>${esc(x.label)}</span>`).join('');
-    const tags = (c.tags || []).map(t => `<li>${esc(t)}</li>`).join('');
+    const tags = (c.tags || []).map(t => `<li class="not-markdown">${esc(t)}</li>`).join('');
     return `
-<a class="course-card" href="${esc(url(c.url))}" style="--c1:${esc(a1)};--c2:${esc(a2)}">
+<a class="course-card not-markdown" href="${esc(url(c.url))}" style="--c1:${esc(a1)};--c2:${esc(a2)}">
   <div class="course-card__cover">
     ${cover}
     <span class="course-card__index">${String(i + 1).padStart(2, '0')}</span>
@@ -34,10 +35,10 @@ hexo.extend.tag.register('course_cards', function () {
   </div>
   <div class="course-card__body">
     <div class="course-card__semester"><i class="far fa-calendar"></i>${esc(c.semester)}</div>
-    <h3 class="course-card__title">${esc(c.title)}</h3>
-    <p class="course-card__en">${esc(c.en)}</p>
-    <p class="course-card__summary">${esc(c.summary)}</p>
-    <ul class="course-card__tags">${tags}</ul>
+    <h3 class="course-card__title not-markdown">${esc(c.title)}</h3>
+    <p class="course-card__en not-markdown">${esc(c.en)}</p>
+    <p class="course-card__summary not-markdown">${esc(c.summary)}</p>
+    <ul class="course-card__tags not-markdown">${tags}</ul>
     <div class="course-card__foot">
       <div class="course-card__counts">${counts}</div>
       <span class="course-card__go" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>

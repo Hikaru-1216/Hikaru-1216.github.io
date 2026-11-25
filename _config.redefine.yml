@@ -1,0 +1,171 @@
+# Redefine 主题配置（只写与主题默认值不同的项，其余沿用
+# node_modules/hexo-theme-redefine/_config.yml）
+# 文档: https://redefine-docs.ohevan.com
+
+info:
+  title: wchikaru's Blog
+  subtitle: 白日春不渡，黑夜万梦星
+  author: wcHikaru
+  url: https://hikaru-1216.github.io
+
+defaults:
+  favicon: /img/favicon.JPG
+  logo:
+  avatar: /img/face.png
+
+colors:
+  # 原站课程中心与 SoC 页用的蓝紫色系
+  primary: "#6a5af9"
+  default_mode: light
+
+global:
+  hover:
+    shadow: true
+    scale: false
+  scroll_progress:
+    bar: true
+    percentage: true
+  website_counter:
+    enable: false
+  # 关闭 swup 单页切换：课程页的 PDF 懒加载脚本和页内 <link> 样式需要整页加载才能生效
+  single_page: false
+  open_graph:
+    enable: true
+    image: /img/face.png
+    description: 一个放笔记、项目与碎碎念的个人博客
+
+home_banner:
+  enable: true
+  style: fixed
+  image:
+    light: /img/home-bg.svg
+    dark: /img/home-bg.svg
+  title: wchikaru's Blog
+  subtitle:
+    text:
+      - 白日春不渡，黑夜万梦星
+      - 到新的爱与喧嚣中去
+      - Still waters run deep
+      - 所有点会连成线～
+  text_color:
+    light: "#fff"
+    dark: "#e5e7eb"
+  text_style:
+    title_size: 4.2rem
+    subtitle_size: 1.4rem
+    line_height: 1.3
+  social_links:
+    enable: true
+    style: center
+    # 注意：数组会按下标与主题默认值合并，所以保留默认的 5 个位置，空 url 的项不显示
+    links:
+      - icon: github
+        url: https://github.com/Hikaru-1216
+      - icon: twitter
+        url:
+      - icon: email
+        url: mailto:3230102682@zju.edu.cn
+      - icon: telegram
+        url:
+      - icon:
+        url:
+    qrs:
+      - icon:
+        qr:
+      - icon:
+        qr:
+
+navbar:
+  auto_hide: false
+  color:
+    left: "#a18cd1"
+    right: "#30cfd0"
+    transparency: 35
+  links:
+    # 键名会经过主题的多语言翻译：Home → 首页、Archives → 归档 等
+    Home:
+      path: /
+      icon: fa-regular fa-house
+    课程资源:
+      path: /courses/
+      icon: fa-solid fa-graduation-cap
+    Archives:
+      path: /archives/
+      icon: fa-regular fa-box-archive
+    Categories:
+      path: /categories/
+      icon: fa-regular fa-folder
+    Tags:
+      path: /tags/
+      icon: fa-regular fa-tags
+    About:
+      icon: fa-regular fa-user
+      submenus:
+        关于我: /about/
+        Link: /link/
+        GitHub: https://github.com/Hikaru-1216
+  search:
+    enable: true
+    preload: false
+
+home:
+  sidebar:
+    enable: true
+    position: left
+    first_item: info
+    announcement: 欢迎来到我的个人小站，每一颗闪光星辰注定会落进同一片云里。
+    show_on_mobile: true
+    links:
+      课程资源:
+        path: /courses/
+        icon: fa-solid fa-graduation-cap
+      归档:
+        path: /archives/
+        icon: fa-regular fa-box-archive
+      分类:
+        path: /categories/
+        icon: fa-regular fa-folder
+      标签:
+        path: /tags/
+        icon: fa-regular fa-tags
+  article_date_format: YYYY-MM-DD
+  excerpt_length: 180
+
+articles:
+  word_count:
+    enable: false
+  author_label:
+    enable: false
+  code_block:
+    copy: true
+    style: mac
+  toc:
+    enable: true
+    max_depth: 3
+    number: true
+    expand: true
+    init_open: true
+  copyright:
+    enable: false
+  lazyload: true
+  pangu_js: false
+
+comment:
+  enable: false
+
+footer:
+  runtime: true
+  start: 2026/3/23 00:00:00
+  statistics: true
+  customize: 用 Hexo + Redefine 搭建
+
+# 自定义样式与脚本通过 scripts/site-inject.js 注入（在主题样式之后加载）
+inject:
+  enable: false
+
+page_templates:
+  friends_column: 2
+  tags_style: blur
+
+cdn:
+  enable: false

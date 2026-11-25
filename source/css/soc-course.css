@@ -14,7 +14,7 @@
   --soc-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
 }
 
-[data-theme="dark"] {
+.dark {
   --soc-accent: #60a5fa;
   --soc-accent-2: #2dd4bf;
   --soc-accent-soft: rgba(96, 165, 250, 0.14);
@@ -29,7 +29,7 @@
 }
 
 /* 顶部总览 */
-#article-container .soc-hero {
+.markdown-body .soc-hero {
   margin: 0 0 1.75rem;
   padding: 1.4rem 1.5rem;
   border: 1px solid var(--soc-border);
@@ -40,11 +40,11 @@
   box-shadow: var(--soc-shadow);
 }
 
-#article-container .soc-hero p {
+.markdown-body .soc-hero p {
   margin: 0 0 1rem;
 }
 
-#article-container .soc-badges {
+.markdown-body .soc-badges {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -53,7 +53,7 @@
   list-style: none;
 }
 
-#article-container .soc-badges li {
+.markdown-body .soc-badges li {
   margin: 0;
   padding: 0.25rem 0.7rem;
   border: 1px solid var(--soc-border);
@@ -63,55 +63,55 @@
   line-height: 1.6;
 }
 
-#article-container .soc-badges li::before {
+.markdown-body .soc-badges li::before {
   display: none;
 }
 
-#article-container .soc-badges b {
+.markdown-body .soc-badges b {
   margin-right: 0.35rem;
   color: var(--soc-muted);
   font-weight: 500;
 }
 
-#article-container .soc-stats {
+.markdown-body .soc-stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.75rem;
 }
 
-#article-container .soc-stats div {
+.markdown-body .soc-stats div {
   padding: 0.7rem 0.8rem;
   border-radius: 0.7rem;
   background: var(--soc-accent-soft);
 }
 
-#article-container .soc-stats strong {
+.markdown-body .soc-stats strong {
   display: block;
   color: var(--soc-accent);
   font-size: 1.45rem;
   line-height: 1.2;
 }
 
-#article-container .soc-stats span {
+.markdown-body .soc-stats span {
   color: var(--soc-muted);
   font-size: 0.82rem;
 }
 
-#article-container .soc-hint {
+.markdown-body .soc-hint {
   margin: 1rem 0 0;
   color: var(--soc-muted);
   font-size: 0.85rem;
 }
 
 /* 章节卡片导航 */
-#article-container .soc-chapters {
+.markdown-body .soc-chapters {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   gap: 0.85rem;
   margin: 1rem 0 2rem;
 }
 
-#article-container a.soc-chapter {
+.markdown-body a.soc-chapter {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
@@ -125,12 +125,12 @@
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-#article-container a.soc-chapter:hover {
+.markdown-body a.soc-chapter:hover {
   border-color: var(--soc-accent);
   transform: translateY(-2px);
 }
 
-#article-container .soc-chapter-no {
+.markdown-body .soc-chapter-no {
   color: var(--soc-accent);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.8rem;
@@ -138,18 +138,18 @@
   letter-spacing: 0.08em;
 }
 
-#article-container .soc-chapter-title {
+.markdown-body .soc-chapter-title {
   font-size: 1.05rem;
   font-weight: 700;
 }
 
-#article-container .soc-chapter-sub {
+.markdown-body .soc-chapter-sub {
   color: var(--soc-muted);
   font-size: 0.85rem;
   line-height: 1.5;
 }
 
-#article-container .soc-chips {
+.markdown-body .soc-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 0.3rem;
@@ -158,7 +158,7 @@
 }
 
 /* 状态标签 */
-#article-container .soc-chip {
+.markdown-body .soc-chip {
   display: inline-block;
   padding: 0.05rem 0.5rem;
   border-radius: 999px;
@@ -168,35 +168,35 @@
   white-space: nowrap;
 }
 
-#article-container .soc-chip.ok {
+.markdown-body .soc-chip.ok {
   background: var(--soc-ok-soft);
   color: var(--soc-ok);
 }
 
-#article-container .soc-chip.wait {
+.markdown-body .soc-chip.wait {
   background: var(--soc-wait-soft);
   color: var(--soc-wait);
 }
 
-#article-container .soc-chip.none {
+.markdown-body .soc-chip.none {
   background: var(--soc-border);
   color: var(--soc-muted);
 }
 
-#article-container .soc-chip.link {
+.markdown-body .soc-chip.link {
   background: var(--soc-accent-soft);
   color: var(--soc-accent);
 }
 
 /* 每章资料区 */
-#article-container .soc-resources {
+.markdown-body .soc-resources {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.75rem;
   margin: 1rem 0 1.5rem;
 }
 
-#article-container .soc-res {
+.markdown-body .soc-res {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
@@ -206,7 +206,7 @@
   background: var(--soc-card);
 }
 
-#article-container .soc-res-head {
+.markdown-body .soc-res-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -214,14 +214,14 @@
   font-weight: 700;
 }
 
-#article-container .soc-res p {
+.markdown-body .soc-res p {
   margin: 0;
   color: var(--soc-muted);
   font-size: 0.82rem;
   line-height: 1.55;
 }
 
-#article-container a.soc-btn {
+.markdown-body a.soc-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -236,22 +236,22 @@
   transition: filter 0.2s ease;
 }
 
-#article-container a.soc-btn:hover {
+.markdown-body a.soc-btn:hover {
   color: #fff;
   filter: brightness(1.1);
 }
 
-#article-container a.soc-btn.alt {
+.markdown-body a.soc-btn.alt {
   background: var(--soc-accent-2);
 }
 
-[data-theme="dark"] #article-container a.soc-btn,
-[data-theme="dark"] #article-container a.soc-btn:hover {
+.dark .markdown-body a.soc-btn,
+.dark .markdown-body a.soc-btn:hover {
   color: #0f172a;
 }
 
 /* 任务要求图片 */
-#article-container .soc-figures {
+.markdown-body .soc-figures {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 340px));
   justify-content: center;
@@ -259,11 +259,11 @@
   margin: 1rem 0 1.5rem;
 }
 
-#article-container .soc-figures.wide {
+.markdown-body .soc-figures.wide {
   grid-template-columns: 1fr;
 }
 
-#article-container .soc-figures figure {
+.markdown-body .soc-figures figure {
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--soc-border);
@@ -271,11 +271,11 @@
   background: var(--soc-card);
 }
 
-#article-container .soc-figures a {
+.markdown-body .soc-figures a {
   display: block;
 }
 
-#article-container .soc-figures img {
+.markdown-body .soc-figures img {
   display: block;
   width: 100%;
   height: auto;
@@ -284,11 +284,11 @@
   transition: opacity 0.2s ease;
 }
 
-#article-container .soc-figures a:hover img {
+.markdown-body .soc-figures a:hover img {
   opacity: 0.9;
 }
 
-#article-container .soc-figures figcaption {
+.markdown-body .soc-figures figcaption {
   padding: 0.5rem 0.8rem;
   color: var(--soc-muted);
   font-size: 0.82rem;
@@ -296,7 +296,7 @@
 }
 
 /* 大作业 */
-#article-container .soc-capstone {
+.markdown-body .soc-capstone {
   display: grid;
   grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
   gap: 1.25rem;
@@ -304,11 +304,11 @@
   margin: 1rem 0 1.5rem;
 }
 
-#article-container .soc-capstone figure {
+.markdown-body .soc-capstone figure {
   margin: 0;
 }
 
-#article-container .soc-capstone img {
+.markdown-body .soc-capstone img {
   display: block;
   width: 100%;
   margin: 0;
@@ -316,71 +316,71 @@
   image-rendering: pixelated;
 }
 
-#article-container .soc-capstone figcaption {
+.markdown-body .soc-capstone figcaption {
   margin-top: 0.4rem;
   color: var(--soc-muted);
   font-size: 0.8rem;
   text-align: center;
 }
 
-#article-container .soc-capstone .soc-stats {
+.markdown-body .soc-capstone .soc-stats {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 /* 锚点与返回 */
-#article-container .soc-anchor {
+.markdown-body .soc-anchor {
   display: block;
   scroll-margin-top: 90px;
 }
 
-#article-container .soc-top {
+.markdown-body .soc-top {
   margin: 1.25rem 0 0;
   text-align: right;
 }
 
-#article-container .soc-top a {
+.markdown-body .soc-top a {
   color: var(--soc-muted);
   font-size: 0.85rem;
   text-decoration: none;
 }
 
-#article-container .soc-top a:hover {
+.markdown-body .soc-top a:hover {
   color: var(--soc-accent);
 }
 
 @media screen and (max-width: 900px) {
-  #article-container .soc-resources {
+  .markdown-body .soc-resources {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media screen and (max-width: 600px) {
-  #article-container .soc-hero {
+  .markdown-body .soc-hero {
     padding: 1.1rem 1rem;
   }
 
-  #article-container .soc-stats {
+  .markdown-body .soc-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  #article-container .soc-resources {
+  .markdown-body .soc-resources {
     grid-template-columns: 1fr;
   }
 
-  #article-container .soc-chapters {
+  .markdown-body .soc-chapters {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.6rem;
   }
 
-  #article-container a.soc-chapter {
+  .markdown-body a.soc-chapter {
     padding: 0.8rem;
   }
 
-  #article-container .soc-capstone {
+  .markdown-body .soc-capstone {
     grid-template-columns: 1fr;
   }
 
-  #article-container .soc-capstone figure {
+  .markdown-body .soc-capstone figure {
     max-width: 240px;
     margin: 0 auto;
   }
