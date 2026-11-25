@@ -44,25 +44,25 @@ top_img: /img/post-2.svg
     <span class="soc-chapter-no">01</span>
     <span class="soc-chapter-title">Hello World</span>
     <span class="soc-chapter-sub">MicroBlaze 最小系统与 Vitis 入门</span>
-    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip wait">视频</span></span>
+    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip ok">视频</span></span>
   </a>
   <a class="soc-chapter" href="#uart">
     <span class="soc-chapter-no">02</span>
     <span class="soc-chapter-title">UART</span>
     <span class="soc-chapter-sub">自定义 AXI UART IP 与 GPIO 扩展</span>
-    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip wait">视频</span><span class="soc-chip ok">报告</span></span>
+    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip ok">视频</span><span class="soc-chip ok">报告</span></span>
   </a>
   <a class="soc-chapter" href="#iic">
     <span class="soc-chapter-no">03</span>
     <span class="soc-chapter-title">IIC</span>
     <span class="soc-chapter-sub">AXI IIC 温度读取与自定义 IIC IP</span>
-    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip wait">视频</span><span class="soc-chip ok">报告</span></span>
+    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip ok">视频</span><span class="soc-chip ok">报告</span></span>
   </a>
   <a class="soc-chapter" href="#spi">
     <span class="soc-chapter-no">04</span>
     <span class="soc-chapter-title">SPI</span>
     <span class="soc-chapter-sub">AXI Quad SPI 与自定义 SPI IP</span>
-    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip wait">视频</span><span class="soc-chip ok">报告</span></span>
+    <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip ok">视频</span><span class="soc-chip ok">报告</span></span>
   </a>
   <a class="soc-chapter" href="#capstone">
     <span class="soc-chapter-no">05</span>
@@ -76,7 +76,7 @@ top_img: /img/post-2.svg
 
 每章都按同样的结构组织：实验目标和任务要求、对应实验 PPT、必要的 Block Design / XDC / RTL / C 程序，以及实验视频和报告的公开状态。章节末尾的资料区用 <span class="soc-chip ok">已提供</span> 和 <span class="soc-chip wait">待补充</span> 标出每类资料的状态。
 
-公开源码经过精简，不包含 `.cache`、`.gen`、`.runs`、`.sim`、`.Xil`、BSP、Vitis platform export 等自动生成内容。完整工程应在 Vivado 2022.2 中根据 Block Design、约束和源码重新生成。实验录屏文件较大，压缩或迁移到视频平台后再补充，页面不会放置失效链接。
+公开源码经过精简，不包含 `.cache`、`.gen`、`.runs`、`.sim`、`.Xil`、BSP、Vitis platform export 等自动生成内容。完整工程应在 Vivado 2022.2 中根据 Block Design、约束和源码重新生成。实验录屏文件较大，统一托管在仓库的 [GitHub Releases](https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/tag/soc-videos) 中，点击各章“观看视频”即可在浏览器中播放或下载。
 
 ---
 
@@ -130,8 +130,9 @@ top_img: /img/post-2.svg
     <a class="soc-btn alt" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/tree/main/source/downloads/soc-interface-design/hello-world/code" target="_blank" rel="noopener">浏览源码</a>
   </div>
   <div class="soc-res">
-    <div class="soc-res-head">实验视频<span class="soc-chip wait">待补充</span></div>
-    <p>原始录屏约 158 MB，压缩或迁移到视频平台后补充。</p>
+    <div class="soc-res-head">实验视频<span class="soc-chip ok">可观看</span></div>
+    <p>Hello World 上板演示录屏，约 158 MB。托管在 GitHub Releases。</p>
+    <a class="soc-btn" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/download/soc-videos/helloworld.mp4" target="_blank" rel="noopener">观看视频</a>
   </div>
   <div class="soc-res">
     <div class="soc-res-head">实验报告<span class="soc-chip none">无</span></div>
@@ -213,8 +214,9 @@ UART IP 由 AXI4-Lite 从接口、接收器、发送器、波特率时钟和 FIF
     <a class="soc-btn alt" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/tree/main/source/downloads/soc-interface-design/uart/code" target="_blank" rel="noopener">浏览源码</a>
   </div>
   <div class="soc-res">
-    <div class="soc-res-head">实验视频<span class="soc-chip wait">待补充</span></div>
-    <p>原始录屏约 202 MB，压缩或迁移到视频平台后补充。</p>
+    <div class="soc-res-head">实验视频<span class="soc-chip ok">可观看</span></div>
+    <p>UART / GPIO 实验上板演示录屏，约 202 MB。托管在 GitHub Releases。</p>
+    <a class="soc-btn" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/download/soc-videos/uart.IP.mp4" target="_blank" rel="noopener">观看视频</a>
   </div>
   <div class="soc-res">
     <div class="soc-res-head">实验报告<span class="soc-chip ok">可下载</span></div>
@@ -283,8 +285,9 @@ MicroBlaze 通过 AXI IIC 的寄存器和 FIFO 发出 START、器件地址、寄
     <a class="soc-btn alt" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/tree/main/source/downloads/soc-interface-design/iic/code" target="_blank" rel="noopener">浏览源码</a>
   </div>
   <div class="soc-res">
-    <div class="soc-res-head">实验视频<span class="soc-chip wait">待补充</span></div>
-    <p>原始录屏约 118 MB，压缩或迁移到视频平台后补充。</p>
+    <div class="soc-res-head">实验视频<span class="soc-chip ok">可观看</span></div>
+    <p>IIC 实验上板演示录屏，约 118 MB。托管在 GitHub Releases。</p>
+    <a class="soc-btn" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/download/soc-videos/iic.mp4" target="_blank" rel="noopener">观看视频</a>
   </div>
   <div class="soc-res">
     <div class="soc-res-head">实验报告<span class="soc-chip ok">可下载</span></div>
@@ -349,8 +352,9 @@ Vitis 程序直接访问 AXI Quad SPI 寄存器，完成片选、发送和接收
     <a class="soc-btn alt" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/tree/main/source/downloads/soc-interface-design/spi/code" target="_blank" rel="noopener">浏览源码</a>
   </div>
   <div class="soc-res">
-    <div class="soc-res-head">实验视频<span class="soc-chip wait">待补充</span></div>
-    <p>原始录屏约 71 MB，压缩或迁移到视频平台后补充。</p>
+    <div class="soc-res-head">实验视频<span class="soc-chip ok">可观看</span></div>
+    <p>SPI 实验上板演示录屏，约 71 MB。托管在 GitHub Releases。</p>
+    <a class="soc-btn" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/download/soc-videos/spi_demo.mp4" target="_blank" rel="noopener">观看视频</a>
   </div>
   <div class="soc-res">
     <div class="soc-res-head">实验报告<span class="soc-chip ok">可下载</span></div>
