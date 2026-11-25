@@ -1,0 +1,24 @@
+# Link 页数据（Redefine 友链格式）
+- links_category: 我的链接
+  has_thumbnail: false
+  list:
+    - name: GitHub 主页
+      link: https://github.com/Hikaru-1216
+      avatar: /img/face.png
+      description: 我的 GitHub 主页
+
+- links_category: 常用站点
+  has_thumbnail: false
+  list:
+    - name: Hexo
+      link: https://hexo.io/
+      avatar: https://hexo.io/logo.svg
+      description: 静态博客框架
+    - name: Redefine
+      link: https://redefine-docs.ohevan.com/
+      avatar: https://redefine.ohevan.com/images/redefine-avatar.svg
+      description: 本站使用的 Hexo 主题
+    - name: GitHub Pages
+      link: https://docs.github.com/en/pages
+      avatar: https://github.githubassets.com/favicons/favicon.svg
+      description: GitHub 官方静态站点服务

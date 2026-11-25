@@ -1,13 +1,17 @@
-# Hexo + Butterfly GitHub Pages Starter
+# wchikaru's Blog
 
-这是一个按 **Hexo + Butterfly** 思路整理的个人博客起步模板：有首页卡片流、关于页、标签页、分类页、友链页和侧边栏信息卡。
+基于 **Hexo 7 + [Redefine](https://redefine-docs.ohevan.com) 主题** 的个人博客，部署在 GitHub Pages。主要放课程资源（/courses/）、学习笔记和项目记录。
+
+- 主题配置：`_config.redefine.yml`（只写和主题默认值不同的项；数组会按下标和主题默认值合并）
+- 自定义样式：`source/css/custom.css`（通过 `scripts/site-inject.js` 注入，在主题样式之后加载）
+- 课程资源中心：数据在 `source/_data/courses.yml`，卡片由 `scripts/course-cards.js` 渲染
 
 ## 你需要先改的 6 处内容
 
 1. `_config.yml` 里的 `title`、`subtitle`、`author`、`url`
-2. `_config.butterfly.yml` 里的 GitHub、邮箱、公告文案
+2. `_config.redefine.yml` 里的 GitHub、邮箱、公告文案
 3. `source/about/index.md` 里的自我介绍
-4. `source/_data/link.yml` 里的友链
+4. `source/_data/links.yml` 里的友链
 5. `source/_posts/` 里的示例文章
 6. `source/img/avatar.svg` 如果你有自己的头像，直接替换掉
 
@@ -77,7 +81,7 @@ npx hexo new post "新文章"
 ```text
 .
 ├── _config.yml
-├── _config.butterfly.yml
+├── _config.redefine.yml
 ├── package.json
 ├── .github/workflows/pages.yml
 ├── source

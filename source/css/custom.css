@@ -7,16 +7,66 @@
   font-display: swap;
 }
 
-/* 2. 将字体应用到 Butterfly 主题的博客主标题 (#site-title) */
-#site-title {
-  font-family: 'DancingScript', cursive !important;
-  font-size: 4.5em; /* 字体大小可以根据你的喜好调整 */
-  letter-spacing: 2px; /* 增加一点字间距让花体更好看 */
+/* 2. 首页横幅标题沿用花体字（副标题保持正文字体） */
+.home-banner-container .description {
+  font-family: 'DancingScript', cursive;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.home-banner-container .description p {
+  font-family: "Geist", system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-weight: 500;
+  letter-spacing: normal;
+}
+
+/* 首页横幅是深蓝色背景：导航栏文字改成白色，保证看得清 */
+.navbar-content.has-home-banner .logo-title,
+.navbar-content.has-home-banner .logo-title *,
+.navbar-content.has-home-banner .navbar-list > .navbar-item > a,
+.navbar-content.has-home-banner .navbar-list > .navbar-item > a i,
+.navbar-content.has-home-banner .navbar-item.search i,
+.navbar-content.has-home-banner .navbar-bar i {
+  color: #fff !important;
+}
+
+/* 课程页里手写的 HTML 组件（按钮、徽章、章节卡片）不需要正文的下划线和列表圆点 */
+.markdown-body ul[class] > li,
+.markdown-body ul[class] li {
+  margin-left: 0;
+  list-style: none;
+}
+
+.markdown-body a[class]:not(.not-markdown),
+.markdown-body a[class]:not(.not-markdown):hover,
+.markdown-body a[class]:not(.not-markdown):focus {
+  padding-bottom: 0;
+  text-decoration: none !important;
+}
+
+.markdown-body a[class]:not(.not-markdown) :is(.fas, .far, .fab) {
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* 3. 主题变量桥接：课程样式里用到的按钮 / 文字 / 卡片颜色，
+      统一映射到 Redefine 的变量，深色模式（html.dark）自动跟随 */
+:root {
+  --btn-bg: var(--primary-color);
+  --btn-color: #fff;
+  --btn-hover-color: color-mix(in srgb, var(--primary-color) 82%, #000);
+  --font-color: var(--default-text-color);
+  --card-bg: var(--background-color);
+}
+
+.dark {
+  --btn-hover-color: color-mix(in srgb, var(--primary-color) 80%, #fff);
 }
 
 /* ==========================================================
    课程资料页面通用样式
-   颜色全部走变量：按钮直接使用 Butterfly 的 --btn-* 变量，
+   颜色全部走变量：按钮使用上方桥接的 --btn-* 变量，
    强调色用下方 --course-* 变量，深色模式下统一切换。
    ========================================================== */
 :root {
@@ -29,7 +79,7 @@
   --course-border: rgba(144, 147, 153, 0.35);
 }
 
-[data-theme='dark'] {
+.dark {
   --course-accent: #6fa8d1;
   --course-accent-soft: rgba(111, 168, 209, 0.12);
   --course-accent-border: rgba(111, 168, 209, 0.3);
@@ -47,7 +97,7 @@
   margin: 1rem 0;
 }
 
-#article-container .pdf-button {
+.markdown-body .pdf-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +111,7 @@
   transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
-#article-container .pdf-button:hover {
+.markdown-body .pdf-button:hover {
   background: var(--btn-hover-color);
   color: var(--btn-color);
   transform: translateY(-1px);
@@ -69,13 +119,13 @@
 }
 
 /* 次要按钮（下载、源码）：描边样式，和主按钮区分层级 */
-#article-container .pdf-button-download {
+.markdown-body .pdf-button-download {
   border-color: var(--course-accent-border);
   background: var(--course-accent-soft);
   color: var(--course-accent);
 }
 
-#article-container .pdf-button-download:hover {
+.markdown-body .pdf-button-download:hover {
   border-color: var(--course-accent);
   background: var(--course-accent-soft);
   color: var(--course-accent);
@@ -102,7 +152,7 @@
   border: 0;
 }
 
-#article-container .pdf-embed-fallback {
+.markdown-body .pdf-embed-fallback {
   padding: 1rem;
   color: var(--font-color);
   opacity: 0.75;
@@ -111,7 +161,7 @@
   text-decoration: none;
 }
 
-#article-container .pdf-embed-fallback:hover {
+.markdown-body .pdf-embed-fallback:hover {
   color: var(--course-accent);
   opacity: 1;
 }
@@ -147,7 +197,7 @@
   margin-top: 1.5rem;
 }
 
-[data-theme="dark"] .course-hub {
+.dark .course-hub {
   --ch-border: rgba(255, 255, 255, 0.12);
   --ch-muted: #9ca3af;
   --ch-chip-bg: rgba(73, 177, 245, 0.16);
@@ -189,7 +239,7 @@
   gap: 1.25rem;
 }
 
-#article-container a.course-card {
+.markdown-body a.course-card {
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -201,8 +251,8 @@
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
-#article-container a.course-card:hover,
-#article-container a.course-card:focus-visible {
+.markdown-body a.course-card:hover,
+.markdown-body a.course-card:focus-visible {
   transform: translateY(-4px);
   border-color: var(--c1);
   box-shadow: 0 0.8rem 1.6rem -0.6rem color-mix(in srgb, var(--c1) 55%, transparent);
@@ -236,7 +286,7 @@
   transition: transform 0.35s ease;
 }
 
-#article-container a.course-card:hover .course-card__icon {
+.markdown-body a.course-card:hover .course-card__icon {
   transform: scale(1.08) rotate(-4deg);
 }
 
@@ -277,10 +327,10 @@
 .course-card__status--done { color: #4b5563; }
 .course-card__status--wip { color: #d97706; }
 
-[data-theme="dark"] .course-card__status { background: rgba(17, 24, 39, 0.85); }
-[data-theme="dark"] .course-card__status--ongoing { color: #4ade80; }
-[data-theme="dark"] .course-card__status--done { color: #d1d5db; }
-[data-theme="dark"] .course-card__status--wip { color: #fbbf24; }
+.dark .course-card__status { background: rgba(17, 24, 39, 0.85); }
+.dark .course-card__status--ongoing { color: #4ade80; }
+.dark .course-card__status--done { color: #d1d5db; }
+.dark .course-card__status--wip { color: #fbbf24; }
 
 .course-card__body {
   display: flex;
@@ -296,28 +346,28 @@
 
 .course-card__semester i { margin-right: 0.35rem; }
 
-#article-container .course-card__title {
+.markdown-body .course-card__title {
   margin: 0.3rem 0 0;
   padding: 0;
   font-size: 1.15rem;
   line-height: 1.4;
 }
 
-#article-container .course-card__title::before { display: none; }
+.markdown-body .course-card__title::before { display: none; }
 
-#article-container .course-card__en {
+.markdown-body .course-card__en {
   margin: 0.1rem 0 0.6rem;
   color: var(--ch-muted);
   font-size: 0.8rem;
 }
 
-#article-container .course-card__summary {
+.markdown-body .course-card__summary {
   margin: 0 0 0.8rem;
   font-size: 0.88rem;
   line-height: 1.65;
 }
 
-#article-container ul.course-card__tags {
+.markdown-body ul.course-card__tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
@@ -326,7 +376,7 @@
   list-style: none;
 }
 
-#article-container ul.course-card__tags li {
+.markdown-body ul.course-card__tags li {
   margin: 0;
   padding: 0.1rem 0.55rem;
   border-radius: 0.4rem;
@@ -335,7 +385,7 @@
   font-size: 0.75rem;
 }
 
-#article-container ul.course-card__tags li::before { display: none; }
+.markdown-body ul.course-card__tags li::before { display: none; }
 
 .course-card__foot {
   display: flex;
@@ -376,7 +426,7 @@
   transition: transform 0.25s ease;
 }
 
-#article-container a.course-card:hover .course-card__go { transform: translateX(3px); }
+.markdown-body a.course-card:hover .course-card__go { transform: translateX(3px); }
 
 .course-hub .sr-only {
   position: absolute;
@@ -394,7 +444,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #article-container a.course-card,
+  .markdown-body a.course-card,
   .course-card__icon,
   .course-card__go { transition: none; }
 }
