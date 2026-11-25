@@ -20,14 +20,14 @@
   letter-spacing: normal;
 }
 
-/* 首页横幅是深蓝色背景：导航栏文字改成白色，保证看得清 */
+/* 首页横幅上的导航栏文字颜色跟随配色（source/css/palette.css） */
 .navbar-content.has-home-banner .logo-title,
 .navbar-content.has-home-banner .logo-title *,
 .navbar-content.has-home-banner .navbar-list > .navbar-item > a,
 .navbar-content.has-home-banner .navbar-list > .navbar-item > a i,
 .navbar-content.has-home-banner .navbar-item.search i,
 .navbar-content.has-home-banner .navbar-bar i {
-  color: #fff !important;
+  color: var(--site-banner-text, #fff) !important;
 }
 
 /* 课程页里手写的 HTML 组件（按钮、徽章、章节卡片）不需要正文的下划线和列表圆点 */
@@ -70,9 +70,9 @@
    强调色用下方 --course-* 变量，深色模式下统一切换。
    ========================================================== */
 :root {
-  --course-accent: #49b1f5;
-  --course-accent-soft: rgba(73, 177, 245, 0.1);
-  --course-accent-border: rgba(73, 177, 245, 0.3);
+  --course-accent: var(--primary-color);
+  --course-accent-soft: color-mix(in srgb, var(--primary-color) 10%, transparent);
+  --course-accent-border: color-mix(in srgb, var(--primary-color) 30%, transparent);
   --course-warn: #e09422;
   --course-warn-soft: rgba(242, 169, 59, 0.12);
   --course-surface: rgba(245, 247, 250, 0.85);
@@ -80,9 +80,9 @@
 }
 
 .dark {
-  --course-accent: #6fa8d1;
-  --course-accent-soft: rgba(111, 168, 209, 0.12);
-  --course-accent-border: rgba(111, 168, 209, 0.3);
+  --course-accent: var(--primary-color);
+  --course-accent-soft: color-mix(in srgb, var(--primary-color) 12%, transparent);
+  --course-accent-border: color-mix(in srgb, var(--primary-color) 30%, transparent);
   --course-warn: #c9934a;
   --course-warn-soft: rgba(201, 147, 74, 0.12);
   --course-surface: rgba(255, 255, 255, 0.04);
@@ -192,16 +192,16 @@
 .course-hub {
   --ch-border: rgba(144, 147, 153, 0.22);
   --ch-muted: #6b7280;
-  --ch-chip-bg: rgba(73, 177, 245, 0.1);
-  --ch-chip-fg: #2f8fd0;
+  --ch-chip-bg: color-mix(in srgb, var(--primary-color) 10%, transparent);
+  --ch-chip-fg: var(--primary-color);
   margin-top: 1.5rem;
 }
 
 .dark .course-hub {
   --ch-border: rgba(255, 255, 255, 0.12);
   --ch-muted: #9ca3af;
-  --ch-chip-bg: rgba(73, 177, 245, 0.16);
-  --ch-chip-fg: #8cc8f2;
+  --ch-chip-bg: color-mix(in srgb, var(--primary-color) 18%, transparent);
+  --ch-chip-fg: var(--primary-color);
 }
 
 .course-hub__stats {
@@ -222,7 +222,7 @@
   display: block;
   font-size: 1.6rem;
   line-height: 1.2;
-  background: linear-gradient(90deg, #6a5af9, #30cfd0);
+  background: var(--site-grad-text, linear-gradient(90deg, #6a5af9, #30cfd0));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
