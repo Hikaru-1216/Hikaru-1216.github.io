@@ -157,3 +157,264 @@
     width: 88vw;
   }
 }
+
+/* ===== 课程资源中心 /courses/ ===== */
+.course-hub {
+  --ch-border: rgba(144, 147, 153, 0.22);
+  --ch-muted: #6b7280;
+  --ch-chip-bg: rgba(73, 177, 245, 0.1);
+  --ch-chip-fg: #2f8fd0;
+  margin-top: 1.5rem;
+}
+
+[data-theme="dark"] .course-hub {
+  --ch-border: rgba(255, 255, 255, 0.12);
+  --ch-muted: #9ca3af;
+  --ch-chip-bg: rgba(73, 177, 245, 0.16);
+  --ch-chip-fg: #8cc8f2;
+}
+
+.course-hub__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.course-hub__stats > div {
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--ch-border);
+  border-radius: 0.8rem;
+  text-align: center;
+}
+
+.course-hub__stats b {
+  display: block;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  background: linear-gradient(90deg, #6a5af9, #30cfd0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.course-hub__stats span {
+  color: var(--ch-muted);
+  font-size: 0.85rem;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+#article-container a.course-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--ch-border);
+  border-radius: 1rem;
+  background: var(--card-bg);
+  color: var(--font-color);
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+#article-container a.course-card:hover,
+#article-container a.course-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--c1);
+  box-shadow: 0 0.8rem 1.6rem -0.6rem color-mix(in srgb, var(--c1) 55%, transparent);
+  color: var(--font-color);
+}
+
+.course-card__cover {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 140px;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.35), transparent 45%),
+    linear-gradient(135deg, var(--c1), var(--c2));
+  overflow: hidden;
+}
+
+.course-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0 !important;
+  object-fit: cover;
+}
+
+.course-card__icon {
+  font-size: 3.2rem;
+  color: rgba(255, 255, 255, 0.92);
+  transition: transform 0.35s ease;
+}
+
+#article-container a.course-card:hover .course-card__icon {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.course-card__index {
+  position: absolute;
+  left: 0.9rem;
+  bottom: 0.4rem;
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.course-card__status {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+}
+
+.course-card__status::before {
+  content: "";
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-right: 0.35rem;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: 0.08em;
+}
+
+.course-card__status--ongoing { color: #0f9d58; }
+.course-card__status--done { color: #4b5563; }
+.course-card__status--wip { color: #d97706; }
+
+[data-theme="dark"] .course-card__status { background: rgba(17, 24, 39, 0.85); }
+[data-theme="dark"] .course-card__status--ongoing { color: #4ade80; }
+[data-theme="dark"] .course-card__status--done { color: #d1d5db; }
+[data-theme="dark"] .course-card__status--wip { color: #fbbf24; }
+
+.course-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1rem 1.1rem 1.1rem;
+}
+
+.course-card__semester {
+  color: var(--ch-muted);
+  font-size: 0.8rem;
+}
+
+.course-card__semester i { margin-right: 0.35rem; }
+
+#article-container .course-card__title {
+  margin: 0.3rem 0 0;
+  padding: 0;
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+
+#article-container .course-card__title::before { display: none; }
+
+#article-container .course-card__en {
+  margin: 0.1rem 0 0.6rem;
+  color: var(--ch-muted);
+  font-size: 0.8rem;
+}
+
+#article-container .course-card__summary {
+  margin: 0 0 0.8rem;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+#article-container ul.course-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+#article-container ul.course-card__tags li {
+  margin: 0;
+  padding: 0.1rem 0.55rem;
+  border-radius: 0.4rem;
+  background: var(--ch-chip-bg);
+  color: var(--ch-chip-fg);
+  font-size: 0.75rem;
+}
+
+#article-container ul.course-card__tags li::before { display: none; }
+
+.course-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 0.8rem;
+  border-top: 1px dashed var(--ch-border);
+}
+
+.course-card__counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.course-card__count {
+  color: var(--ch-muted);
+  font-size: 0.8rem;
+}
+
+.course-card__count b {
+  margin-right: 0.2rem;
+  color: var(--font-color);
+  font-size: 1.05rem;
+}
+
+.course-card__go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c1), var(--c2));
+  color: #fff;
+  font-size: 0.8rem;
+  transition: transform 0.25s ease;
+}
+
+#article-container a.course-card:hover .course-card__go { transform: translateX(3px); }
+
+.course-hub .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 768px) {
+  .course-grid { grid-template-columns: 1fr; }
+  .course-card__cover { height: 110px; }
+  .course-hub__stats b { font-size: 1.3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #article-container a.course-card,
+  .course-card__icon,
+  .course-card__go { transition: none; }
+}
