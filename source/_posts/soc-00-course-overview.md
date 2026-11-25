@@ -377,8 +377,8 @@ Vitis 程序直接访问 AXI Quad SPI 寄存器，完成片选、发送和接收
 
 <div class="soc-capstone">
   <figure>
-    <a href="/downloads/soc-interface-design/capstone/lcd-frame.png" target="_blank" rel="noopener" title="查看原图"><img src="/downloads/soc-interface-design/capstone/lcd-frame.png" alt="LCD 画面仿真渲染：游戏画面与训练统计" loading="lazy"></a>
-    <figcaption>LCD 画面仿真渲染（480×854）</figcaption>
+    <a href="/downloads/soc-interface-design/capstone/lcd-frame.png" target="_blank" rel="noopener" title="查看原图"><img src="/downloads/soc-interface-design/capstone/lcd-frame.png" alt="优化后的 LCD 界面：游戏画面、训练统计与 Q 表热力图" loading="lazy"></a>
+    <figcaption>优化后的 LCD 界面（训练第 3169 局）</figcaption>
   </figure>
   <div class="soc-stats">
     <div><strong>4.3 → 29.9</strong><span>上板 60 秒内最近 100 局平均分</span></div>
