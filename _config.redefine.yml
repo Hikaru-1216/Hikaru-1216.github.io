@@ -14,8 +14,8 @@ defaults:
   avatar: /img/face.png
 
 colors:
-  # 原站课程中心与 SoC 页用的蓝紫色系
-  primary: "#6a5af9"
+  # 实际配色在 source/css/palette.css（极光：浅蓝 + 浅绿），这里只影响浏览器主题色等少数地方
+  primary: "#3a7fc0"
   default_mode: light
 
 global:
@@ -48,8 +48,8 @@ home_banner:
       - Still waters run deep
       - 所有点会连成线～
   text_color:
-    light: "#fff"
-    dark: "#e5e7eb"
+    light: "#1f3b4d"
+    dark: "#e6f6ff"
   text_style:
     title_size: 4.2rem
     subtitle_size: 1.4rem
@@ -78,8 +78,8 @@ home_banner:
 navbar:
   auto_hide: false
   color:
-    left: "#a18cd1"
-    right: "#30cfd0"
+    left: "#bae6fd"
+    right: "#bbf7d0"
     transparency: 35
   links:
     # 键名会经过主题的多语言翻译：Home → 首页、Archives → 归档 等

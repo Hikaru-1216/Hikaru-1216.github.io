@@ -1,0 +1,71 @@
+/* 全站配色：极光（浅色 + 深色）。由 scripts/site-inject.js 在 custom.css 之后注入。 */
+
+html.light,
+html:not(.dark) {
+  --primary-color: #3a7fc0;
+  --selection-color: color-mix(in srgb, #3a7fc0 35%, transparent);
+  --background-color: #f6f9fb;
+  --site-nav: rgba(255,255,255,0.55);
+  --site-banner: radial-gradient(circle at 18% 28%, rgba(125,211,252,0.65), transparent 45%), radial-gradient(circle at 82% 72%, rgba(134,239,172,0.55), transparent 45%), radial-gradient(circle at 60% 15%, rgba(165,243,252,0.5), transparent 40%), linear-gradient(135deg, #eef7ff, #ecfdf5);
+  --site-banner-text: #1f3b4d;
+  --site-cover-1: radial-gradient(circle at 20% 30%, rgba(125,211,252,0.7), transparent 55%), radial-gradient(circle at 80% 70%, rgba(134,239,172,0.6), transparent 55%), #eef7ff;
+  --site-cover-2: radial-gradient(circle at 75% 25%, rgba(165,243,252,0.7), transparent 55%), radial-gradient(circle at 25% 80%, rgba(147,197,253,0.6), transparent 55%), #ecfdf5;
+  --site-grad-text: linear-gradient(90deg, #3a7fc0, #34b38a);
+}
+
+html.dark {
+  --primary-color: #6cc6f5;
+  --selection-color: color-mix(in srgb, #6cc6f5 35%, transparent);
+  --background-color: #0b131b;
+  --site-nav: rgba(11,19,27,0.72);
+  --site-banner: radial-gradient(circle at 18% 28%, rgba(56,189,248,0.28), transparent 45%), radial-gradient(circle at 82% 72%, rgba(52,211,153,0.24), transparent 45%), linear-gradient(135deg, #08111a, #0d1b24);
+  --site-banner-text: #e6f6ff;
+  --site-cover-1: radial-gradient(circle at 20% 30%, rgba(56,189,248,0.35), transparent 55%), radial-gradient(circle at 80% 70%, rgba(52,211,153,0.3), transparent 55%), #0b1620;
+  --site-cover-2: radial-gradient(circle at 75% 25%, rgba(45,212,191,0.32), transparent 55%), radial-gradient(circle at 25% 80%, rgba(96,165,250,0.3), transparent 55%), #0b1620;
+  --site-grad-text: linear-gradient(90deg, #6cc6f5, #6ee7b7);
+}
+
+/* 课程中心卡片封面渐变（覆盖 courses.yml 里的 accent） */
+html .course-grid > .course-card:nth-child(1) {
+  --c1: #6aa8e8 !important;
+  --c2: #7fd8c4 !important;
+}
+html .course-grid > .course-card:nth-child(2) {
+  --c1: #58b6d8 !important;
+  --c2: #9ee6b8 !important;
+}
+html .course-grid > .course-card:nth-child(3) {
+  --c1: #7ab0f0 !important;
+  --c2: #8fe3d6 !important;
+}
+
+/* 首页横幅：用渐变替换原来的 home-bg.svg */
+.home-banner-background {
+  background: var(--site-banner);
+}
+.home-banner-background img {
+  opacity: 0;
+}
+.home-banner-container .description,
+.home-banner-container .description p,
+.home-banner-container .social-contacts i {
+  color: var(--site-banner-text) !important;
+}
+
+/* 导航栏：半透明毛玻璃，颜色跟随配色 */
+.navbar-container {
+  background: var(--site-nav) !important;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+/* 文章封面：默认的 post-1 / post-2 占位图改成配色渐变 */
+a:has(> img[src$="/img/post-1.svg"]),
+a:has(> img[src$="/img/post-2.svg"]) { display: block; height: 100%; }
+:is(div, a):has(> img[src$="/img/post-1.svg"]) { background: var(--site-cover-1); }
+:is(div, a):has(> img[src$="/img/post-2.svg"]) { background: var(--site-cover-2); }
+img[src$="/img/post-1.svg"],
+img[src$="/img/post-2.svg"] {
+  opacity: 0;
+}
+
