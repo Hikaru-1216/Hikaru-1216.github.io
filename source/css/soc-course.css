@@ -178,6 +178,11 @@
   color: var(--soc-wait);
 }
 
+#article-container .soc-chip.none {
+  background: var(--soc-border);
+  color: var(--soc-muted);
+}
+
 #article-container .soc-chip.link {
   background: var(--soc-accent-soft);
   color: var(--soc-accent);
