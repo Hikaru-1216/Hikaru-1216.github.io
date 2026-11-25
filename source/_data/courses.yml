@@ -1,0 +1,52 @@
+# 课程资源中心 /courses/ 的数据源。新增课程只需在这里加一项。
+#
+# 字段说明：
+#   title     课程名
+#   en        英文名或副标题
+#   url       课程资源入口
+#   semester  开课学期
+#   status    状态：ongoing（更新中）/ done（已完结）/ wip（整理中）
+#   cover     封面图（可选）。留空时使用 accent 渐变色 + icon 生成封面
+#   accent    封面渐变色（两种颜色）
+#   icon      Font Awesome 图标类名
+#   tags      标签
+#   counts    资源统计，每项 {num, label}
+#   summary   一句话简介
+
+- title: 数字集成电路设计
+  en: Digital Integrated Circuit Design
+  url: /digital-integrated-circuit-design/
+  semester: 2025-2026 春夏
+  status: wip                    # 很多资料还没上传
+  accent: ["#6a5af9", "#30cfd0"]
+  icon: fas fa-microchip
+  tags: [CMOS, 版图与工艺, 时序, 功耗]
+  counts:
+    - { num: 14, label: 章节笔记 }
+  summary: 从器件、反相器到组合/时序逻辑、互连、时序与存储器的完整章节笔记。期中范围到 Chapter 7。
+
+- title: 片上系统接口与模块设计
+  en: SoC Interface & Module Design
+  url: /2026/08/15/soc-00-course-overview/
+  semester: 2025-2026 春夏
+  status: wip                    # 很多资料还没上传
+  accent: ["#ff9a9e", "#a18cd1"]
+  icon: fas fa-server
+  tags: [SoC, FPGA, MicroBlaze, Vivado, AXI4-Lite]
+  counts:
+    - { num: 4, label: 实验 }
+    - { num: 7, label: 任务页 }
+  summary: 基于 MicroBlaze 与 Nexys 4 DDR，覆盖 Hello World、UART、IIC、SPI 与片上强化学习大作业。
+
+- title: 电子电路设计实验 I
+  en: Electronic Circuit Design Lab I
+  url: /2026/07/11/电子电路设计实验-I-讲义与实验报告/
+  semester: 2025-2026 春夏
+  status: wip                    # 很多资料还没上传
+  accent: ["#30cfd0", "#4facfe"]
+  icon: fas fa-wave-square
+  tags: [电子电路设计, 实验报告, OrCAD]
+  counts:
+    - { num: 1, label: 讲义 }
+    - { num: 7, label: 实验报告 }
+  summary: 课程讲义与电路定律、RC 瞬态响应、OrCAD、晶体管放大电路、集成运放等实验报告，支持在线预览与下载。
