@@ -23,7 +23,9 @@ top_img: /img/post-2.svg
   <a class="pdf-button" href="/downloads/electronic-circuit-design-i/lecture/handout.pdf" target="_blank" rel="noopener">新窗口预览</a>
   <a class="pdf-button pdf-button-download" href="/downloads/electronic-circuit-design-i/lecture/handout.pdf" download>下载 PDF</a>
 </div>
-<iframe class="pdf-preview" src="/downloads/electronic-circuit-design-i/lecture/handout.pdf#view=FitH" title="电子电路设计实验 I 讲义预览" loading="lazy"></iframe>
+<div class="pdf-embed" data-src="/downloads/electronic-circuit-design-i/lecture/handout.pdf#view=FitH" data-title="电子电路设计实验 I 讲义预览">
+  <a class="pdf-embed-fallback" href="/downloads/electronic-circuit-design-i/lecture/handout.pdf" target="_blank" rel="noopener"><span class="pdf-embed-mobile-hint">手机浏览器暂不支持内嵌预览，</span>在新窗口打开 PDF ↗</a>
+</div>
 
 ## 实验报告
 
@@ -35,7 +37,9 @@ top_img: /img/post-2.svg
   <a class="pdf-button" href="/downloads/electronic-circuit-design-i/lab1/report.pdf" target="_blank" rel="noopener">新窗口预览</a>
   <a class="pdf-button pdf-button-download" href="/downloads/electronic-circuit-design-i/lab1/report.pdf" download>下载 PDF</a>
 </div>
-<iframe class="pdf-preview" src="/downloads/electronic-circuit-design-i/lab1/report.pdf#view=FitH" title="实验 1 电路定律验证实验报告预览" loading="lazy"></iframe>
+<div class="pdf-embed" data-src="/downloads/electronic-circuit-design-i/lab1/report.pdf#view=FitH" data-title="实验 1 电路定律验证实验报告预览">
+  <a class="pdf-embed-fallback" href="/downloads/electronic-circuit-design-i/lab1/report.pdf" target="_blank" rel="noopener"><span class="pdf-embed-mobile-hint">手机浏览器暂不支持内嵌预览，</span>在新窗口打开 PDF ↗</a>
+</div>
 
 ### 实验 2：一阶 RC 电路的瞬态响应过程研究
 
@@ -45,7 +49,9 @@ top_img: /img/post-2.svg
   <a class="pdf-button" href="/downloads/electronic-circuit-design-i/lab2/report.pdf" target="_blank" rel="noopener">新窗口预览</a>
   <a class="pdf-button pdf-button-download" href="/downloads/electronic-circuit-design-i/lab2/report.pdf" download>下载 PDF</a>
 </div>
-<iframe class="pdf-preview" src="/downloads/electronic-circuit-design-i/lab2/report.pdf#view=FitH" title="实验 2 一阶 RC 电路的瞬态响应过程研究报告预览" loading="lazy"></iframe>
+<div class="pdf-embed" data-src="/downloads/electronic-circuit-design-i/lab2/report.pdf#view=FitH" data-title="实验 2 一阶 RC 电路的瞬态响应过程研究报告预览">
+  <a class="pdf-embed-fallback" href="/downloads/electronic-circuit-design-i/lab2/report.pdf" target="_blank" rel="noopener"><span class="pdf-embed-mobile-hint">手机浏览器暂不支持内嵌预览，</span>在新窗口打开 PDF ↗</a>
+</div>
 
 ### 实验 3：OrCAD 软件使用练习
 
@@ -55,7 +61,9 @@ top_img: /img/post-2.svg
   <a class="pdf-button" href="/downloads/electronic-circuit-design-i/lab3/report.pdf" target="_blank" rel="noopener">新窗口预览</a>
   <a class="pdf-button pdf-button-download" href="/downloads/electronic-circuit-design-i/lab3/report.pdf" download>下载 PDF</a>
 </div>
-<iframe class="pdf-preview" src="/downloads/electronic-circuit-design-i/lab3/report.pdf#view=FitH" title="实验 3 OrCAD 软件使用练习报告预览" loading="lazy"></iframe>
+<div class="pdf-embed" data-src="/downloads/electronic-circuit-design-i/lab3/report.pdf#view=FitH" data-title="实验 3 OrCAD 软件使用练习报告预览">
+  <a class="pdf-embed-fallback" href="/downloads/electronic-circuit-design-i/lab3/report.pdf" target="_blank" rel="noopener"><span class="pdf-embed-mobile-hint">手机浏览器暂不支持内嵌预览，</span>在新窗口打开 PDF ↗</a>
+</div>
 
 ### 实验 4、5：晶体管共射放大电路的设计、仿真与测试
 
@@ -65,7 +73,9 @@ top_img: /img/post-2.svg
   <a class="pdf-button" href="/downloads/electronic-circuit-design-i/lab4-5/report.pdf" target="_blank" rel="noopener">新窗口预览</a>
   <a class="pdf-button pdf-button-download" href="/downloads/electronic-circuit-design-i/lab4-5/report.pdf" download>下载 PDF</a>
 </div>
-<iframe class="pdf-preview" src="/downloads/electronic-circuit-design-i/lab4-5/report.pdf#view=FitH" title="实验 4、5 晶体管共射放大电路报告预览" loading="lazy"></iframe>
+<div class="pdf-embed" data-src="/downloads/electronic-circuit-design-i/lab4-5/report.pdf#view=FitH" data-title="实验 4、5 晶体管共射放大电路报告预览">
+  <a class="pdf-embed-fallback" href="/downloads/electronic-circuit-design-i/lab4-5/report.pdf" target="_blank" rel="noopener"><span class="pdf-embed-mobile-hint">手机浏览器暂不支持内嵌预览，</span>在新窗口打开 PDF ↗</a>
+</div>
 
 ### 实验 6：集成运算放大器应用电路研究 I
 
@@ -75,7 +85,9 @@ top_img: /img/post-2.svg
   <a class="pdf-button" href="/downloads/electronic-circuit-design-i/lab6/report.pdf" target="_blank" rel="noopener">新窗口预览</a>
   <a class="pdf-button pdf-button-download" href="/downloads/electronic-circuit-design-i/lab6/report.pdf" download>下载 PDF</a>
 </div>
-<iframe class="pdf-preview" src="/downloads/electronic-circuit-design-i/lab6/report.pdf#view=FitH" title="实验 6 集成运算放大器应用电路研究 I 报告预览" loading="lazy"></iframe>
+<div class="pdf-embed" data-src="/downloads/electronic-circuit-design-i/lab6/report.pdf#view=FitH" data-title="实验 6 集成运算放大器应用电路研究 I 报告预览">
+  <a class="pdf-embed-fallback" href="/downloads/electronic-circuit-design-i/lab6/report.pdf" target="_blank" rel="noopener"><span class="pdf-embed-mobile-hint">手机浏览器暂不支持内嵌预览，</span>在新窗口打开 PDF ↗</a>
+</div>
 
 ### 实验 7：集成运算放大器应用电路研究 II
 
@@ -85,6 +97,8 @@ top_img: /img/post-2.svg
   <a class="pdf-button" href="/downloads/electronic-circuit-design-i/lab7/report.pdf" target="_blank" rel="noopener">新窗口预览</a>
   <a class="pdf-button pdf-button-download" href="/downloads/electronic-circuit-design-i/lab7/report.pdf" download>下载 PDF</a>
 </div>
-<iframe class="pdf-preview" src="/downloads/electronic-circuit-design-i/lab7/report.pdf#view=FitH" title="实验 7 集成运算放大器应用电路研究 II 报告预览" loading="lazy"></iframe>
+<div class="pdf-embed" data-src="/downloads/electronic-circuit-design-i/lab7/report.pdf#view=FitH" data-title="实验 7 集成运算放大器应用电路研究 II 报告预览">
+  <a class="pdf-embed-fallback" href="/downloads/electronic-circuit-design-i/lab7/report.pdf" target="_blank" rel="noopener"><span class="pdf-embed-mobile-hint">手机浏览器暂不支持内嵌预览，</span>在新窗口打开 PDF ↗</a>
+</div>
 
 
