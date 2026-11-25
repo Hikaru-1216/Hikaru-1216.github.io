@@ -381,10 +381,10 @@ Vitis 程序直接访问 AXI Quad SPI 寄存器，完成片选、发送和接收
     <figcaption>优化后的 LCD 界面（训练第 3169 局）</figcaption>
   </figure>
   <div class="soc-stats">
-    <div><strong>4.3 → 29.9</strong><span>上板 60 秒内最近 100 局平均分</span></div>
-    <div><strong>198</strong><span>单局最高分（根管子）</span></div>
-    <div><strong>+0.095 ns</strong><span>时序余量 WNS</span></div>
-    <div><strong>4.2%</strong><span>LUT 占用（BRAM 8.9%）</span></div>
+    <div><strong>702</strong><span>单局最高分（上板训练 3000 局，根管子）</span></div>
+    <div><strong>88.57</strong><span>上板第 3000 局时最近 100 局平均分</span></div>
+    <div><strong>+0.489 ns</strong><span>时序余量 WNS</span></div>
+    <div><strong>7.41%</strong><span>LUT 占用（BRAM 10%）</span></div>
   </div>
 </div>
 
