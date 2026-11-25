@@ -1,5 +1,4 @@
 # 课程资源中心 /courses/ 的数据源。新增课程只需在这里加一项。
-# 标注「待确认」的字段是根据文章日期推测的，请按实际情况修改。
 #
 # 字段说明：
 #   title     课程名
@@ -17,8 +16,8 @@
 - title: 数字集成电路设计
   en: Digital Integrated Circuit Design
   url: /digital-integrated-circuit-design/
-  semester: 2026 秋冬            # 待确认：按笔记页日期 2026-10 推测
-  status: ongoing                # 待确认：14 章笔记均已上传，是否已完结？
+  semester: 2025-2026 春夏
+  status: wip                    # 很多资料还没上传
   accent: ["#6a5af9", "#30cfd0"]
   icon: fas fa-microchip
   tags: [CMOS, 版图与工艺, 时序, 功耗]
@@ -29,8 +28,8 @@
 - title: 片上系统接口与模块设计
   en: SoC Interface & Module Design
   url: /2026/08/15/soc-00-course-overview/
-  semester: 2025-2026 春夏       # 待确认：按文章日期 2026-08 推测
-  status: wip                    # 实验报告仍在脱敏处理中，暂不公开
+  semester: 2025-2026 春夏
+  status: wip                    # 很多资料还没上传
   accent: ["#ff9a9e", "#a18cd1"]
   icon: fas fa-server
   tags: [SoC, FPGA, MicroBlaze, Vivado, AXI4-Lite]
@@ -42,8 +41,8 @@
 - title: 电子电路设计实验 I
   en: Electronic Circuit Design Lab I
   url: /2026/07/11/电子电路设计实验-I-讲义与实验报告/
-  semester: 2025-2026 春夏       # 待确认：按文章日期 2026-07 推测
-  status: done
+  semester: 2025-2026 春夏
+  status: wip                    # 很多资料还没上传
   accent: ["#30cfd0", "#4facfe"]
   icon: fas fa-wave-square
   tags: [电子电路设计, 实验报告, OrCAD]

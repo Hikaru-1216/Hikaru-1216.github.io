@@ -55,7 +55,7 @@ hexo.extend.tag.register('course_cards', function () {
   <div class="course-hub__stats">
     <div><b>${courses.length}</b><span>门课程</span></div>
     <div><b>${totalRes}</b><span>份资源</span></div>
-    <div><b>${courses.filter(c => c.status === 'ongoing').length}</b><span>门更新中</span></div>
+    <div><b>${courses.filter(c => c.status !== 'done').length}</b><span>门整理中</span></div>
   </div>
   <div class="course-grid">${cards}</div>
 </div>`;
