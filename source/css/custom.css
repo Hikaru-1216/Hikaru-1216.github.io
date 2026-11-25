@@ -14,7 +14,32 @@
   letter-spacing: 2px; /* 增加一点字间距让花体更好看 */
 }
 
-/* 课程资料文章中的 PDF 预览与下载控件 */
+/* ==========================================================
+   课程资料页面通用样式
+   颜色全部走变量：按钮直接使用 Butterfly 的 --btn-* 变量，
+   强调色用下方 --course-* 变量，深色模式下统一切换。
+   ========================================================== */
+:root {
+  --course-accent: #49b1f5;
+  --course-accent-soft: rgba(73, 177, 245, 0.1);
+  --course-accent-border: rgba(73, 177, 245, 0.3);
+  --course-warn: #e09422;
+  --course-warn-soft: rgba(242, 169, 59, 0.12);
+  --course-surface: rgba(245, 247, 250, 0.85);
+  --course-border: rgba(144, 147, 153, 0.35);
+}
+
+[data-theme='dark'] {
+  --course-accent: #6fa8d1;
+  --course-accent-soft: rgba(111, 168, 209, 0.12);
+  --course-accent-border: rgba(111, 168, 209, 0.3);
+  --course-warn: #c9934a;
+  --course-warn-soft: rgba(201, 147, 74, 0.12);
+  --course-surface: rgba(255, 255, 255, 0.04);
+  --course-border: rgba(255, 255, 255, 0.14);
+}
+
+/* 预览 / 下载按钮 */
 .pdf-actions {
   display: flex;
   flex-wrap: wrap;
@@ -27,48 +52,116 @@
   align-items: center;
   justify-content: center;
   padding: 0.55rem 1rem;
+  border: 1px solid transparent;
   border-radius: 0.55rem;
-  background: #49b1f5;
-  color: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-color);
   font-weight: 600;
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
 #article-container .pdf-button:hover {
-  color: #fff;
+  background: var(--btn-hover-color);
+  color: var(--btn-color);
   transform: translateY(-1px);
-  box-shadow: 0 0.35rem 0.8rem rgba(73, 177, 245, 0.28);
+  box-shadow: 0 0.35rem 0.8rem rgba(0, 0, 0, 0.15);
 }
 
+/* 次要按钮（下载、源码）：描边样式，和主按钮区分层级 */
 #article-container .pdf-button-download {
-  background: #00c4b6;
+  border-color: var(--course-accent-border);
+  background: var(--course-accent-soft);
+  color: var(--course-accent);
 }
 
-.pdf-preview {
-  width: 100%;
+#article-container .pdf-button-download:hover {
+  border-color: var(--course-accent);
+  background: var(--course-accent-soft);
+  color: var(--course-accent);
+}
+
+/* PDF 内嵌预览：由 /js/course-pdf.js 在进入视口时插入 iframe */
+.pdf-embed {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 680px;
   margin: 0 0 2rem;
-  border: 1px solid rgba(144, 147, 153, 0.35);
+  border: 1px solid var(--course-border);
   border-radius: 0.75rem;
-  background: #f5f7fa;
+  background: var(--course-surface);
+  overflow: hidden;
+}
+
+.pdf-embed iframe,
+.pdf-preview {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* 兼容仍直接写 iframe.pdf-preview 的旧文章 */
+iframe.pdf-preview {
+  height: 680px;
+  margin: 0 0 2rem;
+  border: 1px solid var(--course-border);
+  border-radius: 0.75rem;
+  background: var(--course-surface);
+}
+
+#article-container .pdf-embed-fallback {
+  padding: 1rem;
+  color: var(--font-color);
+  opacity: 0.75;
+  font-size: 0.9rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+#article-container .pdf-embed-fallback:hover {
+  color: var(--course-accent);
+  opacity: 1;
+}
+
+.pdf-embed.is-loaded .pdf-embed-fallback {
+  display: none;
+}
+
+.pdf-embed-mobile-hint {
+  display: none;
 }
 
 @media screen and (max-width: 768px) {
-  .pdf-preview {
+  /* 手机浏览器大多无法内嵌渲染 PDF：只保留一行提示链接，不加载 iframe */
+  .pdf-embed {
+    height: auto;
+    min-height: 0;
+    margin-bottom: 1.5rem;
+    border-style: dashed;
+  }
+
+  .pdf-embed-mobile-hint {
+    display: inline;
+  }
+
+  iframe.pdf-preview {
     height: 520px;
   }
 }
 
-/* SoC 课程文章中的资源提示、任务页和实验视频 */
+/* 资源提示 */
 .resource-note {
   margin: 1rem 0 1.5rem;
   padding: 0.9rem 1rem;
-  border-left: 4px solid #f2a93b;
+  border-left: 4px solid var(--course-warn);
   border-radius: 0.45rem;
-  background: rgba(242, 169, 59, 0.12);
+  background: var(--course-warn-soft);
 }
 
+/* 章节导航卡片 */
 .soc-chapter-nav {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -81,9 +174,9 @@
   flex-direction: column;
   gap: 0.2rem;
   padding: 0.9rem 0.8rem;
-  border: 1px solid rgba(73, 177, 245, 0.25);
+  border: 1px solid var(--course-accent-border);
   border-radius: 0.65rem;
-  background: rgba(73, 177, 245, 0.08);
+  background: var(--course-accent-soft);
   color: var(--font-color);
   font-weight: 600;
   text-decoration: none;
@@ -91,14 +184,13 @@
 }
 
 #article-container .soc-chapter-nav a:hover {
-  border-color: #49b1f5;
-  background: rgba(73, 177, 245, 0.16);
-  color: #49b1f5;
+  border-color: var(--course-accent);
+  color: var(--course-accent);
   transform: translateY(-2px);
 }
 
 .soc-chapter-nav span {
-  color: #49b1f5;
+  color: var(--course-accent);
   font-size: 0.8rem;
   letter-spacing: 0.08em;
 }
@@ -113,7 +205,7 @@
 }
 
 #article-container .soc-back-to-top a {
-  color: #49b1f5;
+  color: var(--course-accent);
   font-size: 0.9rem;
   text-decoration: none;
 }
