@@ -72,9 +72,10 @@ img[src$="/img/post-2.svg"] {
 }
 
 
-/* 首页横幅图片：湖光山色插画（源文件 /img/banner/lake.svg，导出为 lake.jpg） */
+/* 首页横幅图片：樱花富士湖景（竖版原图放大 2 倍并轻度锐化）。
+   定位在 30%，让标题落在天空上、不和雪顶重叠 */
 .home-banner-background {
-  background: url(/img/banner/lake.jpg) center / cover no-repeat;
+  background: url(/img/banner/sakura.jpg) center 30% / cover no-repeat;
 }
 .home-banner-container {
   --site-banner-text: #ffffff;
@@ -83,7 +84,7 @@ img[src$="/img/post-2.svg"] {
   text-shadow: 0 2px 18px rgba(8, 47, 73, 0.45);
 }
 .home-banner-container .description p {
-  text-shadow: 0 1px 10px rgba(8, 47, 73, 0.6);
+  text-shadow: 0 1px 3px rgba(8, 47, 73, 0.55), 0 1px 12px rgba(8, 47, 73, 0.6);
 }
 /* 深色模式下给横幅图压暗 */
 html.dark .home-banner-background::after {
