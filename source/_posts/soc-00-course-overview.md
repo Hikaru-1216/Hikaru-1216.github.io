@@ -1,7 +1,7 @@
 ---
 title: 《片上系统接口与模块设计》——2025-2026春夏
 date: 2026-08-15 22:30:00
-updated: 2026-11-25 12:00:00
+
 description: 浙江大学 微电子科学与工程专业 大三年级专业选修课：基于 MicroBlaze 与 Nexys 4 DDR 的 SoC 实验课程，涵盖 Hello World、UART、IIC、SPI 和片上强化学习大作业。
 categories:
   - 课程资料
