@@ -35,7 +35,7 @@ top_img: /img/post-2.svg
     <div><strong>1</strong><span>个开源大作业</span></div>
   </div>
   <p class="soc-hint">实验 PPT 与任务页来自课程教学材料，仅用于课程学习与技术交流。教师上传在学在浙大的视频中使用的是Vivado 2022.2 版本，建议使用完全相同的版本，注意在安装时需要顺带安装 Vitis 。</p>
-  > Vivado 2025.1 已经移除了旧版 Vitis Classic IDE，而且新版不仅界面不同，还改变了 BSP 生成机制和部分外设驱动的初始化方式,因此不建议安装最新版。
+  <p class="soc-hint">Vivado 2025.1 已经移除了旧版 Vitis Classic IDE，而且新版不仅界面不同，还改变了 BSP 生成机制和部分外设驱动的初始化方式,因此不建议安装最新版。</p>
 </div>
 
 ## 章节导航
@@ -157,9 +157,9 @@ top_img: /img/post-2.svg
 
 <span id="uart" class="soc-anchor"></span>
 
-## 02 · UART：自定义 AXI UART 与 GPIO 扩展
+## 02 · UART
 
-这一章从“使用现成 IP”转向“设计并封装自定义 AXI IP”。实验 A 完成 UART 收发模块，实验 B 在此基础上加入 AXI GPIO，实现 PC、MicroBlaze 与 FPGA 板级外设之间的数据交互。
+这一章从【使用现成 IP】转向【设计并封装自定义 AXI IP】。实验 A 完成 UART 收发模块，实验 B 在此基础上加入 AXI GPIO，实现 PC、MicroBlaze 与 FPGA 板级外设之间的数据交互。
 
 ### 实验 A：自定义 UART IP
 
@@ -238,7 +238,7 @@ UART IP 由 AXI4-Lite 从接口、接收器、发送器、波特率时钟和 FIF
 
 <span id="iic" class="soc-anchor"></span>
 
-## 03 · IIC：AXI IIC 与自定义 IIC IP
+## 03 · IIC
 
 本章围绕 IIC（I²C）串行总线展开。实验 A 使用现成 AXI IIC IP 建立温度传感器读取通路；实验 B 将时钟生成、总线核心、控制器与 FIFO 封装成自定义 AXI4-Lite IP。
 
@@ -307,7 +307,7 @@ MicroBlaze 通过 AXI IIC 的寄存器和 FIFO 发出 START、器件地址、寄
 
 <span id="spi" class="soc-anchor"></span>
 
-## 04 · SPI：AXI Quad SPI 与自定义 SPI IP
+## 04 · SPI
 
 本章使用 Nexys 4 DDR 板载 ADXL362 加速度计验证 SPI 主机。实验 A 使用 Xilinx AXI Quad SPI；实验 B 用 Verilog 实现 SPI 时钟、控制器、移位核心和 FIFO，并封装为 AXI4-Lite 外设。
 
