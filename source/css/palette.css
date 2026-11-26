@@ -8,6 +8,7 @@ html:not(.dark) {
   --site-nav: rgba(255,255,255,0.55);
   --site-banner: radial-gradient(circle at 18% 28%, rgba(125,211,252,0.65), transparent 45%), radial-gradient(circle at 82% 72%, rgba(134,239,172,0.55), transparent 45%), radial-gradient(circle at 60% 15%, rgba(165,243,252,0.5), transparent 40%), linear-gradient(135deg, #eef7ff, #ecfdf5);
   --site-banner-text: #1f3b4d;
+  --site-nav-text: #1f3b4d;
   --site-cover-1: radial-gradient(circle at 20% 30%, rgba(125,211,252,0.7), transparent 55%), radial-gradient(circle at 80% 70%, rgba(134,239,172,0.6), transparent 55%), #eef7ff;
   --site-cover-2: radial-gradient(circle at 75% 25%, rgba(165,243,252,0.7), transparent 55%), radial-gradient(circle at 25% 80%, rgba(147,197,253,0.6), transparent 55%), #ecfdf5;
   --site-grad-text: linear-gradient(90deg, #3a7fc0, #34b38a);
@@ -20,6 +21,7 @@ html.dark {
   --site-nav: rgba(11,19,27,0.72);
   --site-banner: radial-gradient(circle at 18% 28%, rgba(56,189,248,0.28), transparent 45%), radial-gradient(circle at 82% 72%, rgba(52,211,153,0.24), transparent 45%), linear-gradient(135deg, #08111a, #0d1b24);
   --site-banner-text: #e6f6ff;
+  --site-nav-text: #e6f6ff;
   --site-cover-1: radial-gradient(circle at 20% 30%, rgba(56,189,248,0.35), transparent 55%), radial-gradient(circle at 80% 70%, rgba(52,211,153,0.3), transparent 55%), #0b1620;
   --site-cover-2: radial-gradient(circle at 75% 25%, rgba(45,212,191,0.32), transparent 55%), radial-gradient(circle at 25% 80%, rgba(96,165,250,0.3), transparent 55%), #0b1620;
   --site-grad-text: linear-gradient(90deg, #6cc6f5, #6ee7b7);
@@ -69,3 +71,25 @@ img[src$="/img/post-2.svg"] {
   opacity: 0;
 }
 
+
+/* 首页横幅图片：樱花富士湖景（竖版原图放大 2 倍并轻度锐化）。
+   定位在 30%，让标题落在天空上、不和雪顶重叠 */
+.home-banner-background {
+  background: url(/img/banner/sakura.jpg) center 30% / cover no-repeat;
+}
+.home-banner-container {
+  --site-banner-text: #ffffff;
+}
+.home-banner-container .description {
+  text-shadow: 0 2px 18px rgba(8, 47, 73, 0.45);
+}
+.home-banner-container .description p {
+  text-shadow: 0 1px 3px rgba(8, 47, 73, 0.55), 0 1px 12px rgba(8, 47, 73, 0.6);
+}
+/* 深色模式下给横幅图压暗 */
+html.dark .home-banner-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 14, 22, 0.55);
+}

@@ -27,7 +27,7 @@
 .navbar-content.has-home-banner .navbar-list > .navbar-item > a i,
 .navbar-content.has-home-banner .navbar-item.search i,
 .navbar-content.has-home-banner .navbar-bar i {
-  color: var(--site-banner-text, #fff) !important;
+  color: var(--site-nav-text, var(--default-text-color)) !important;
 }
 
 /* 课程页里手写的 HTML 组件（按钮、徽章、章节卡片）不需要正文的下划线和列表圆点 */
