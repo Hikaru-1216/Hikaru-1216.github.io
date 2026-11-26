@@ -458,3 +458,57 @@
   font-weight: 700;
   letter-spacing: 1px;
 }
+
+/* ===== 文章 Tag：顶部信息栏与文末统一为小号胶囊标签 ===== */
+.article-meta-info .article-tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 0.45rem;
+}
+@media (max-width: 768px) {
+  .article-meta-info .article-tags { display: none; }  /* 窄屏沿用主题逻辑：标签放到文末 */
+}
+.article-meta-info .article-tags a::before {
+  content: '#';
+}
+.article-meta-info .article-tags ul {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  vertical-align: middle;
+}
+.article-meta-info .article-tags li {
+  display: inline-flex;
+  font-size: 0;              /* 隐藏模板里的 "| " 分隔符与 &nbsp; */
+}
+.post-tags-box {
+  display: flex !important;  /* 主题默认 md:hidden，电脑端也显示文末标签 */
+  gap: 0.45rem;
+  margin: 1.5rem auto 0.5rem;
+  padding: 0 1rem;
+  font-size: 0;
+}
+.post-tags-box .tag-item { margin: 0 !important; }
+.article-meta-info .article-tags a,
+.post-tags-box .tag-item a {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  padding: 0.08rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-color, rgba(0,0,0,.12));
+  background: var(--third-background-color, rgba(0,0,0,.04));
+  color: var(--second-text-color, #555) !important;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.post-tags-box .tag-item a { font-size: 0.82rem; padding: 0.18rem 0.75rem; }
+.article-meta-info .article-tags a:hover,
+.post-tags-box .tag-item a:hover {
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color);
+  background: transparent;
+}
