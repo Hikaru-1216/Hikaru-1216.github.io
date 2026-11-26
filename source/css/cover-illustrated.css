@@ -1,0 +1,40 @@
+/* 插画封面：封面图自带课程名时，在文章开头引入本文件。
+ * 文章标题移到封面下方，不再盖住插画；窄屏裁切时保留左侧的课程名。
+ * 用法：<link rel="stylesheet" href="/css/cover-illustrated.css">
+ */
+/* 封面插画自带课程名，文章标题移到封面下方，不再盖住插画 */
+.article-title > .absolute.bottom-0 {
+  position: static;
+}
+
+.article-title-cover {
+  margin: 1.4rem 1.5rem 0.2rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  color: var(--default-text-color) !important;
+  font-size: 1.7rem !important;
+  line-height: 1.45 !important;
+  font-weight: 700 !important;
+  text-align: left !important;
+}
+
+@media screen and (min-width: 768px) {
+  .article-title-cover {
+    margin-left: 2rem !important;
+    margin-right: 2rem !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .article-title-cover {
+    font-size: 1.3rem !important;
+  }
+}
+
+/* 窄屏时封面裁切保留左侧的课程名 */
+.article-title > img {
+  object-position: 18% center;
+}

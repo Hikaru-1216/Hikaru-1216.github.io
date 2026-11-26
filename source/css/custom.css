@@ -512,3 +512,12 @@
   border-color: var(--primary-color);
   background: transparent;
 }
+
+/* 首页卡片：自带课程名的插画封面（/img/*-cover.jpg）加高缩略图，避免把标题裁掉 */
+.home-article-thumbnail:has(img[src*="-cover."]) {
+  height: auto !important;
+  aspect-ratio: 2.6 / 1;
+}
+.home-article-thumbnail img[src*="-cover."] {
+  object-position: center 30%;
+}

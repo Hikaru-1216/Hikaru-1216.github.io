@@ -9,9 +9,11 @@ tags:
   - 电子电路设计
   - 实验报告
   - 浙江大学
-cover: /img/post-2.svg
-top_img: /img/post-2.svg
+cover: /img/ecd-cover.jpg
+top_img: /img/ecd-cover.jpg
 ---
+
+<link rel="stylesheet" href="/css/cover-illustrated.css">
 
 《电子电路设计实验 I》的课程讲义和个人实验报告，方便学弟学妹们参考借鉴。
 
