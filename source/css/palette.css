@@ -72,10 +72,10 @@ img[src$="/img/post-2.svg"] {
 }
 
 
-/* 首页横幅图片：樱花富士湖景（竖版原图放大 2 倍并轻度锐化）。
+/* 首页横幅图片：樱花富士湖景（原图，未做任何处理）。
    定位在 30%，让标题落在天空上、不和雪顶重叠 */
 .home-banner-background {
-  background: url(/img/banner/sakura.jpg) center 30% / cover no-repeat;
+  background: url(/img/banner/sakura.png) center 30% / cover no-repeat;
 }
 .home-banner-container {
   --site-banner-text: #ffffff;
