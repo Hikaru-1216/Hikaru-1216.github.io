@@ -386,56 +386,6 @@
   }
 }
 
-/* ---------- 字体与标题层级 ---------- */
-/* 英文 New Computer Modern，中文思源宋体（字体文件见 soc-fonts.css） */
-:root {
-  --soc-serif: 'SoC NewCM', 'SoC Serif SC', 'Source Han Serif SC', 'Noto Serif SC', 'Songti SC', 'STSong', serif;
-}
-
-.article-title,
-.article-title-cover,
-.markdown-body,
-.markdown-body :is(h1, h2, h3, h4, h5, h6):not(.not-markdown),
-.markdown-body .soc-chapter-no,
-.post-toc-wrap,
-.toc-content-container {
-  font-family: var(--soc-serif);
-}
-
-.markdown-body code,
-.markdown-body pre,
-.markdown-body kbd {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
-}
-
-.markdown-body {
-  line-height: 1.85;
-}
-
-/* 一级标题（章节）：收小字号，用细线和留白区分层级 */
-.markdown-body h2:not(.not-markdown) {
-  margin: 2.4rem 0 1rem;
-  padding-bottom: 0.45rem;
-  font-size: 1.55rem;
-  font-weight: 700;
-  line-height: 1.4;
-  letter-spacing: 0.01em;
-  border-bottom: 1px solid var(--soc-border);
-}
-
-.markdown-body h3:not(.not-markdown) {
-  margin: 1.8rem 0 0.75rem;
-  font-size: 1.22rem;
-  font-weight: 700;
-  line-height: 1.45;
-}
-
-.markdown-body h4:not(.not-markdown) {
-  margin: 1.4rem 0 0.6rem;
-  font-size: 1.05rem;
-  font-weight: 700;
-}
-
 /* 封面插画自带课程名，文章标题移到封面下方，不再盖住插画 */
 .article-title > .absolute.bottom-0 {
   position: static;
@@ -463,14 +413,6 @@
 }
 
 @media screen and (max-width: 600px) {
-  .markdown-body h2:not(.not-markdown) {
-    font-size: 1.35rem;
-  }
-
-  .markdown-body h3:not(.not-markdown) {
-    font-size: 1.12rem;
-  }
-
   .article-title-cover {
     font-size: 1.3rem !important;
   }
@@ -505,4 +447,9 @@
 
 .markdown-body a.soc-btn span {
   color: inherit;
+}
+
+/* 章节编号与正文同用衬线体（全站字体见 typography.css） */
+.markdown-body .soc-chapter-no {
+  font-family: var(--site-serif);
 }

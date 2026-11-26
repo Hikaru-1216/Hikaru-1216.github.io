@@ -16,7 +16,6 @@ cover: /img/soc-cover.jpg
 top_img: /img/soc-cover.jpg
 ---
 
-<link rel="stylesheet" href="/css/soc-fonts.css">
 <link rel="stylesheet" href="/css/soc-course.css">
 <span id="soc-course-top" class="soc-anchor"></span>
 
