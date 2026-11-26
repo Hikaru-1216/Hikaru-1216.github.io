@@ -1,0 +1,131 @@
+/* ===== 全站字体与标题层级 =====
+ * 英文 New Computer Modern，中文思源宋体（字体文件见 fonts.css）。
+ * 手写体站点名、首页打字机副标题、导航和小号元信息保持主题原样。
+ */
+:root {
+  --site-serif: 'SoC NewCM', 'SoC Serif SC', 'Source Han Serif SC', 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+  --site-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* ---------- 首页：文章卡片与侧栏 ---------- */
+.home-article-title,
+.home-article-content,
+.home-sidebar-container .author .name,
+.home-sidebar-container .announcement,
+.home-sidebar-container .announcement-outside,
+.home-sidebar-container .link-name {
+  font-family: var(--site-serif);
+}
+
+.home-article-title {
+  font-family: var(--site-serif) !important;  /* 主题里是嵌套选择器，优先级更高 */
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.home-article-content {
+  line-height: 1.8;
+  text-align: left !important;  /* 两端对齐在窄屏下中英混排字距过大 */
+}
+
+/* 侧栏卡片里的站点名与导航栏一致，用手写体 */
+.home-sidebar-container .site-name {
+  font-family: 'DancingScript', cursive !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+/* ---------- 文章页：标题、正文、目录 ---------- */
+.article-title-regular,
+.article-title-cover,
+.markdown-body,
+.markdown-body :is(h1, h2, h3, h4, h5, h6):not(.not-markdown),
+.post-toc-wrap,
+.toc-content-container {
+  font-family: var(--site-serif);
+}
+
+.markdown-body code,
+.markdown-body pre,
+.markdown-body kbd,
+.markdown-body pre *,
+.markdown-body code * {
+  font-family: var(--site-mono);
+}
+
+.markdown-body {
+  line-height: 1.85;
+}
+
+/* 文章大标题：与 SoC 页封面下方的标题一致 */
+.article-title-regular,
+.article-title-cover {
+  font-size: 1.7rem !important;
+  line-height: 1.45 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+}
+
+/* 各级标题：沿用 SoC 页的层级 */
+.markdown-body h1:not(.not-markdown) {
+  margin: 2.4rem 0 1rem;
+  padding-bottom: 0.45rem;
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.4;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.markdown-body h2:not(.not-markdown) {
+  margin: 2.4rem 0 1rem;
+  padding-bottom: 0.45rem;
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.markdown-body h3:not(.not-markdown) {
+  margin: 1.8rem 0 0.75rem;
+  font-size: 1.22rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.markdown-body h4:not(.not-markdown) {
+  margin: 1.4rem 0 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.markdown-body :is(h5, h6):not(.not-markdown) {
+  margin: 1.2rem 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* 首页摘要也在 .markdown-body 里，标题不需要上边距 */
+.home-article-content.markdown-body :is(h1, h2, h3, h4):not(.not-markdown) {
+  margin-top: 0.6rem;
+}
+
+@media screen and (max-width: 600px) {
+  .article-title-regular,
+  .article-title-cover {
+    font-size: 1.3rem !important;
+  }
+
+  .markdown-body h1:not(.not-markdown) {
+    font-size: 1.45rem;
+  }
+
+  .markdown-body h2:not(.not-markdown) {
+    font-size: 1.35rem;
+  }
+
+  .markdown-body h3:not(.not-markdown) {
+    font-size: 1.12rem;
+  }
+}
