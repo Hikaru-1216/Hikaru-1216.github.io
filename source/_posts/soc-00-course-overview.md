@@ -1,8 +1,8 @@
 ---
-title: 片上系统接口与模块设计：课程资料整理
+title: 《片上系统接口与模块设计》——2025-2026春夏
 date: 2026-08-15 22:30:00
 updated: 2026-11-25 12:00:00
-description: 基于 MicroBlaze 与 Nexys 4 DDR 的 SoC 实验课程整理，涵盖 Hello World、UART、IIC、SPI 和片上强化学习大作业。
+description: 浙江大学 微电子科学与工程专业 大三年级专业选修课：基于 MicroBlaze 与 Nexys 4 DDR 的 SoC 实验课程，涵盖 Hello World、UART、IIC、SPI 和片上强化学习大作业。
 categories:
   - 课程资料
   - 片上系统接口与模块设计
@@ -20,9 +20,9 @@ top_img: /img/post-2.svg
 <span id="soc-course-top" class="soc-anchor"></span>
 
 <div class="soc-hero">
-  <p>这里整理《片上系统接口与模块设计》课程的实验资料与个人工程记录。课程从 MicroBlaze 最小系统开始，逐步完成 UART、IIC（I²C）和 SPI 外设接口，最后把软核处理器、自定义 AXI IP 与片上强化学习系统组合起来。</p>
+  <p> 浙江大学 微电子科学与工程专业 大三年级专业选修课《片上系统接口与模块设计》课程的实验资料。课程从认识 MicroBlaze 系统开始，逐步完成 Hello World 实验、自定义 UART、IIC（I²C）和 SPI 外设接口设计，最后设计课程大作业。</p>
   <ul class="soc-badges">
-    <li><b>工具</b>Vivado / Vitis 2022.2</li>
+    <li><b>EDA工具</b>Vivado / Vitis 2022.2</li>
     <li><b>开发板</b>Digilent Nexys 4 DDR</li>
     <li><b>器件</b>xc7a100tcsg324-1</li>
     <li><b>处理器</b>MicroBlaze</li>
@@ -30,11 +30,12 @@ top_img: /img/post-2.svg
   </ul>
   <div class="soc-stats">
     <div><strong>5</strong><span>个章节</span></div>
-    <div><strong>8</strong><span>个实验任务</span></div>
+    <div><strong>3</strong><span>份实验报告</span></div>
     <div><strong>4</strong><span>套自定义 AXI IP</span></div>
     <div><strong>1</strong><span>个开源大作业</span></div>
   </div>
-  <p class="soc-hint">实验 PPT 与任务页来自课程教学材料，仅用于课程学习与技术交流。建议使用完全相同的 2022.2 版本：自定义 IP、FIFO Generator、Block Design 和导出的 XSA 都可能受版本差异影响。</p>
+  <p class="soc-hint">实验 PPT 与任务页来自课程教学材料，仅用于课程学习与技术交流。教师上传在学在浙大的视频中使用的是Vivado 2022.2 版本，建议使用完全相同的版本，注意在安装时需要顺带安装 Vitis 。</p>
+  > Vivado 2025.1 已经移除了旧版 Vitis Classic IDE，而且新版不仅界面不同，还改变了 BSP 生成机制和部分外设驱动的初始化方式,因此不建议安装最新版。
 </div>
 
 ## 章节导航
@@ -43,25 +44,25 @@ top_img: /img/post-2.svg
   <a class="soc-chapter" href="#hello-world">
     <span class="soc-chapter-no">01</span>
     <span class="soc-chapter-title">Hello World</span>
-    <span class="soc-chapter-sub">MicroBlaze 最小系统与 Vitis 入门</span>
+    <span class="soc-chapter-sub">认识 MicroBlaze 最小系统与 Vitis 入门</span>
     <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip ok">视频</span></span>
   </a>
   <a class="soc-chapter" href="#uart">
     <span class="soc-chapter-no">02</span>
     <span class="soc-chapter-title">UART</span>
-    <span class="soc-chapter-sub">自定义 AXI UART IP 与 GPIO 扩展</span>
+    <span class="soc-chapter-sub">自定义 AXI UART IP 设计与 GPIO 扩展</span>
     <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip ok">视频</span><span class="soc-chip ok">报告</span></span>
   </a>
   <a class="soc-chapter" href="#iic">
     <span class="soc-chapter-no">03</span>
     <span class="soc-chapter-title">IIC</span>
-    <span class="soc-chapter-sub">AXI IIC 温度读取与自定义 IIC IP</span>
+    <span class="soc-chapter-sub">AXI IIC 温度读取与自定义 IIC IP 设计</span>
     <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip ok">视频</span><span class="soc-chip ok">报告</span></span>
   </a>
   <a class="soc-chapter" href="#spi">
     <span class="soc-chapter-no">04</span>
     <span class="soc-chapter-title">SPI</span>
-    <span class="soc-chapter-sub">AXI Quad SPI 与自定义 SPI IP</span>
+    <span class="soc-chapter-sub">AXI Quad SPI 与自定义 SPI IP 设计</span>
     <span class="soc-chips"><span class="soc-chip ok">PPT</span><span class="soc-chip ok">源码</span><span class="soc-chip ok">视频</span><span class="soc-chip ok">报告</span></span>
   </a>
   <a class="soc-chapter" href="#capstone">
@@ -74,15 +75,15 @@ top_img: /img/post-2.svg
 
 ## 资料说明
 
-每章都按同样的结构组织：实验目标和任务要求、对应实验 PPT、必要的 Block Design / XDC / RTL / C 程序，以及实验视频和报告的公开状态。章节末尾的资料区用 <span class="soc-chip ok">已提供</span> 和 <span class="soc-chip wait">待补充</span> 标出每类资料的状态。
+每章都按同样的结构组织：实验目标和任务要求、对应实验 PPT、必要的 Block Design / XDC / RTL / C 程序，以及实验视频和参考实验报告。
 
-公开源码经过精简，不包含 `.cache`、`.gen`、`.runs`、`.sim`、`.Xil`、BSP、Vitis platform export 等自动生成内容。完整工程应在 Vivado 2022.2 中根据 Block Design、约束和源码重新生成。实验录屏文件较大，统一托管在仓库的 [GitHub Releases](https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/tag/soc-videos) 中，点击各章“观看视频”即可在浏览器中播放或下载。
+公开源码经过AI精简，不包含 `.cache`、`.gen`、`.runs`、`.sim`、`.Xil`、BSP、Vitis platform export 等自动生成内容。完整工程应在 Vivado 2022.2 中根据 Block Design、约束和源码重新生成。实验录屏文件较大，统一托管在仓库的 [GitHub Releases](https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/tag/soc-videos) 中，点击各章“观看视频”即可在浏览器中播放或下载。
 
 ---
 
 <span id="hello-world" class="soc-anchor"></span>
 
-## 01 · Hello World：MicroBlaze 最小系统
+## 01 · Hello World 
 
 本实验是整门课程的起点：在 FPGA 内搭建 MicroBlaze 软核处理器、片上 BRAM、时钟复位和 AXI UARTLite，并在 Vitis 中运行 Hello World 程序。
 
@@ -146,7 +147,7 @@ top_img: /img/post-2.svg
 - `hardware/nexys4ddr.xdc`：时钟、复位和串口约束；
 - `software/helloworld.c`：Vitis 应用入口。
 
-> 当前归档的 `design_1.bd` 最后由 Vivado 2025.2.1 保存，仅建议用作结构参考。若使用课程推荐的 Vivado 2022.2，请按照本章 PPT 重新创建 Block Design；其余 UART、IIC、SPI 归档均为 2022.2 工程文件。
+> 当前整理的 `design_1.bd` 最后由 Vivado 2025.2.1 保存，因为一开始没安装2022.2版本，仅建议用作结构参考。若使用课程推荐的 Vivado 2022.2，请按照本章 PPT 重新创建 Block Design；其余 UART、IIC、SPI 归档均为 2022.2 工程文件。
 
 
 
