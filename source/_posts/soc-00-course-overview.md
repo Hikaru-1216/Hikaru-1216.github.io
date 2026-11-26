@@ -12,10 +12,11 @@ tags:
   - MicroBlaze
   - Vivado
   - AXI4-Lite
-cover: /img/post-2.svg
-top_img: /img/post-2.svg
+cover: /img/soc-cover.jpg
+top_img: /img/soc-cover.jpg
 ---
 
+<link rel="stylesheet" href="/css/soc-fonts.css">
 <link rel="stylesheet" href="/css/soc-course.css">
 <span id="soc-course-top" class="soc-anchor"></span>
 
@@ -128,12 +129,12 @@ top_img: /img/post-2.svg
   <div class="soc-res">
     <div class="soc-res-head">源码<span class="soc-chip ok">可浏览</span></div>
     <p>Block Design、XDC 约束与 Hello World 入口程序。</p>
-    <a class="soc-btn alt" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/tree/main/source/downloads/soc-interface-design/hello-world/code" target="_blank" rel="noopener">浏览源码</a>
+    <a class="soc-btn alt" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/tree/main/source/downloads/soc-interface-design/hello-world/code" target="_blank" rel="noopener"><span>浏览源码</span></a>
   </div>
   <div class="soc-res">
     <div class="soc-res-head">实验视频<span class="soc-chip ok">可观看</span></div>
     <p>Hello World 上板演示录屏，约 158 MB。托管在 GitHub Releases。</p>
-    <a class="soc-btn" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/download/soc-videos/helloworld.mp4" target="_blank" rel="noopener">观看视频</a>
+    <a class="soc-btn" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/download/soc-videos/helloworld.mp4" target="_blank" rel="noopener"><span>观看视频</span></a>
   </div>
   <div class="soc-res">
     <div class="soc-res-head">实验报告<span class="soc-chip none">无</span></div>
@@ -212,12 +213,12 @@ UART IP 由 AXI4-Lite 从接口、接收器、发送器、波特率时钟和 FIF
   <div class="soc-res">
     <div class="soc-res-head">源码<span class="soc-chip ok">可浏览</span></div>
     <p>UART / AXI GPIO RTL、FIFO 配置、两套 BD/XDC 与六个测试程序。</p>
-    <a class="soc-btn alt" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/tree/main/source/downloads/soc-interface-design/uart/code" target="_blank" rel="noopener">浏览源码</a>
+    <a class="soc-btn alt" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/tree/main/source/downloads/soc-interface-design/uart/code" target="_blank" rel="noopener"><span>浏览源码</span></a>
   </div>
   <div class="soc-res">
     <div class="soc-res-head">实验视频<span class="soc-chip ok">可观看</span></div>
     <p>UART / GPIO 实验上板演示录屏，约 202 MB。托管在 GitHub Releases。</p>
-    <a class="soc-btn" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/download/soc-videos/uart.IP.mp4" target="_blank" rel="noopener">观看视频</a>
+    <a class="soc-btn" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/download/soc-videos/uart.IP.mp4" target="_blank" rel="noopener"><span>观看视频</span></a>
   </div>
   <div class="soc-res">
     <div class="soc-res-head">实验报告<span class="soc-chip ok">可下载</span></div>
@@ -283,12 +284,12 @@ MicroBlaze 通过 AXI IIC 的寄存器和 FIFO 发出 START、器件地址、寄
   <div class="soc-res">
     <div class="soc-res-head">源码<span class="soc-chip ok">可浏览</span></div>
     <p>实验 A/B 的 BD、XDC、Vitis 应用与两组定向 testbench。</p>
-    <a class="soc-btn alt" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/tree/main/source/downloads/soc-interface-design/iic/code" target="_blank" rel="noopener">浏览源码</a>
+    <a class="soc-btn alt" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/tree/main/source/downloads/soc-interface-design/iic/code" target="_blank" rel="noopener"><span>浏览源码</span></a>
   </div>
   <div class="soc-res">
     <div class="soc-res-head">实验视频<span class="soc-chip ok">可观看</span></div>
     <p>IIC 实验上板演示录屏，约 118 MB。托管在 GitHub Releases。</p>
-    <a class="soc-btn" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/download/soc-videos/iic.mp4" target="_blank" rel="noopener">观看视频</a>
+    <a class="soc-btn" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/download/soc-videos/iic.mp4" target="_blank" rel="noopener"><span>观看视频</span></a>
   </div>
   <div class="soc-res">
     <div class="soc-res-head">实验报告<span class="soc-chip ok">可下载</span></div>
@@ -350,12 +351,12 @@ Vitis 程序直接访问 AXI Quad SPI 寄存器，完成片选、发送和接收
   <div class="soc-res">
     <div class="soc-res-head">源码<span class="soc-chip ok">可浏览</span></div>
     <p>SPI 子模块 RTL、各模块 testbench 与 25AA010A 行为模型。</p>
-    <a class="soc-btn alt" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/tree/main/source/downloads/soc-interface-design/spi/code" target="_blank" rel="noopener">浏览源码</a>
+    <a class="soc-btn alt" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/tree/main/source/downloads/soc-interface-design/spi/code" target="_blank" rel="noopener"><span>浏览源码</span></a>
   </div>
   <div class="soc-res">
     <div class="soc-res-head">实验视频<span class="soc-chip ok">可观看</span></div>
     <p>SPI 实验上板演示录屏，约 71 MB。托管在 GitHub Releases。</p>
-    <a class="soc-btn" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/download/soc-videos/spi_demo.mp4" target="_blank" rel="noopener">观看视频</a>
+    <a class="soc-btn" href="https://github.com/Hikaru-1216/Hikaru-1216.github.io/releases/download/soc-videos/spi_demo.mp4" target="_blank" rel="noopener"><span>观看视频</span></a>
   </div>
   <div class="soc-res">
     <div class="soc-res-head">实验报告<span class="soc-chip ok">可下载</span></div>
@@ -409,12 +410,12 @@ MicroBlaze 负责配置超参数、读取统计并输出串口信息，不参与
   <div class="soc-res">
     <div class="soc-res-head">开源仓库<span class="soc-chip link">GitHub</span></div>
     <p>RTL、仿真、软件、构建脚本、约束与验证证据。</p>
-    <a class="soc-btn" href="https://github.com/BixingWu/FlappyBird_on_Chip" target="_blank" rel="noopener">访问仓库</a>
+    <a class="soc-btn" href="https://github.com/BixingWu/FlappyBird_on_Chip" target="_blank" rel="noopener"><span>访问仓库</span></a>
   </div>
   <div class="soc-res">
     <div class="soc-res-head">复现指南<span class="soc-chip link">README</span></div>
     <p>环境准备、纯仿真验证、上板烧录与常见问题。</p>
-    <a class="soc-btn alt" href="https://github.com/BixingWu/FlappyBird_on_Chip/blob/main/README.md" target="_blank" rel="noopener">查看指南</a>
+    <a class="soc-btn alt" href="https://github.com/BixingWu/FlappyBird_on_Chip/blob/main/README.md" target="_blank" rel="noopener"><span>查看指南</span></a>
   </div>
   <div class="soc-res">
     <div class="soc-res-head">演示视频<span class="soc-chip link">仓库内</span></div>
