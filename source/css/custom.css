@@ -448,3 +448,13 @@
   .course-card__icon,
   .course-card__go { transition: none; }
 }
+
+/* 导航栏左上角站点名与首页横幅标题统一使用花体字 */
+.navbar-container .logo-title,
+.navbar-container .logo-title a,
+.logo-title h1,
+.logo-title {
+  font-family: 'DancingScript', cursive !important;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
